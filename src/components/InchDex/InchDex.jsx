@@ -30,7 +30,7 @@ const styles = {
     display: "flex",
     justifyContent: "space-between",
     fontSize: "15px",
-    color: "#434343",
+    color: "#333",
     marginTop: "8px",
     padding: "0 10px",
   },
@@ -125,7 +125,7 @@ function InchDex({ chain }) {
   }, [tokenList]);
 
   const ButtonState = useMemo(() => {
-    if (chainIds?.[chainId] !== chain) return { isActive: false, text: `Switch to ${chain}` };
+    if (chainIds?.[chainId] !== chain) return { isActive: false, text: `Wrong Network Selected` };
 
     if (!fromAmount) return { isActive: false, text: "Enter an amount" };
     if (fromAmount && currentTrade) return { isActive: true, text: "Swap" };
@@ -165,8 +165,8 @@ function InchDex({ chain }) {
   return (
     <>
       <Card style={styles.card} bodyStyle={{ padding: "18px" }}>
-        <Card style={{ borderRadius: "1rem" }} bodyStyle={{ padding: "0.8rem" }}>
-          <div style={{ marginBottom: "5px", fontSize: "14px", color: "#434343" }}>From</div>
+        <Card style={{ borderRadius: "5px", border: "0px" }} bodyStyle={{ padding: "0.8rem" }}>
+          <div style={{ marginBottom: "0px", fontSize: "14px", color: "#333" }}>From</div>
           <div
             style={{
               display: "flex",
@@ -181,7 +181,7 @@ function InchDex({ chain }) {
                 onChange={setFromAmount}
                 value={fromAmount}
               />
-              <Text style={{ fontWeight: "600", color: "#434343" }}>{fromTokenAmountUsd}</Text>
+              <Text style={{ fontWeight: "600", color: "#333" }}>{fromTokenAmountUsd}</Text>
             </div>
             <Button
               style={{
@@ -189,7 +189,7 @@ function InchDex({ chain }) {
                 display: "flex",
                 justifyContent: "space-between",
                 alignItems: "center",
-                borderRadius: "0.6rem",
+                borderRadius: "30px",
                 padding: "5px 10px",
                 fontWeight: "500",
                 fontSize: "17px",
@@ -200,14 +200,14 @@ function InchDex({ chain }) {
             >
               {fromToken ? (
                 <Image
-                  src={fromToken?.logoURI || "https://etherscan.io/images/main/empty-token.png"}
+                  src={fromToken?.logoURI || "/img/512Blank.png"}
                   alt="nologo"
                   width="30px"
                   preview={false}
                   style={{ borderRadius: "15px" }}
                 />
               ) : (
-                <span>Select a token</span>
+                <span>Select a Token</span>
               )}
               <span>{fromToken?.symbol}</span>
               <Arrow />
@@ -217,8 +217,8 @@ function InchDex({ chain }) {
         <div style={{ display: "flex", justifyContent: "center", padding: "10px" }}>
           <ArrowDownOutlined />
         </div>
-        <Card style={{ borderRadius: "1rem" }} bodyStyle={{ padding: "0.8rem" }}>
-          <div style={{ marginBottom: "5px", fontSize: "14px", color: "#434343" }}>To</div>
+        <Card style={{ borderRadius: "5px", border: "0px" }} bodyStyle={{ padding: "0.8rem" }}>
+          <div style={{ marginBottom: "5px", fontSize: "14px", color: "#333" }}>To</div>
           <div
             style={{
               display: "flex",
@@ -233,7 +233,7 @@ function InchDex({ chain }) {
                 readOnly
                 value={quote ? Moralis.Units.FromWei(quote?.toTokenAmount, quote?.toToken?.decimals).toFixed(6) : ""}
               />
-              <Text style={{ fontWeight: "600", color: "#434343" }}>{toTokenAmountUsd}</Text>
+              <Text style={{ fontWeight: "600", color: "333" }}>{toTokenAmountUsd}</Text>
             </div>
             <Button
               style={{
@@ -241,7 +241,7 @@ function InchDex({ chain }) {
                 display: "flex",
                 justifyContent: "space-between",
                 alignItems: "center",
-                borderRadius: "0.6rem",
+                borderRadius: "30px",
                 padding: "5px 10px",
                 fontWeight: "500",
                 fontSize: "17px",
@@ -253,7 +253,7 @@ function InchDex({ chain }) {
             >
               {toToken ? (
                 <Image
-                  src={toToken?.logoURI || "https://etherscan.io/images/main/empty-token.png"}
+                  src={toToken?.logoURI || "/img/512Blank.png"}
                   alt="nologo"
                   width="30px"
                   preview={false}
@@ -290,7 +290,7 @@ function InchDex({ chain }) {
           style={{
             width: "100%",
             marginTop: "15px",
-            borderRadius: "0.6rem",
+            borderRadius: "30px",
             height: "50px",
           }}
           onClick={() => trySwap(currentTrade)}
@@ -300,7 +300,7 @@ function InchDex({ chain }) {
         </Button>
       </Card>
       <Modal
-        title="Select a token"
+        title="Select a Token"
         visible={isFromModalActive}
         onCancel={() => setFromModalActive(false)}
         bodyStyle={{ padding: 0 }}
@@ -315,7 +315,7 @@ function InchDex({ chain }) {
         />
       </Modal>
       <Modal
-        title="Select a token"
+        title="Select a Token"
         visible={isToModalActive}
         onCancel={() => setToModalActive(false)}
         bodyStyle={{ padding: 0 }}

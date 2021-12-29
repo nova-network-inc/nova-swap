@@ -32,7 +32,7 @@ const styles = {
     color: "#FFF",
     marginTop: "130px",
     padding: "10px",
-    borderRadius: "10px",
+    borderRadius: "30px",
     text: {
       color: "#333",
     },
@@ -44,7 +44,7 @@ const styles = {
     position: "fixed",
     zIndex: 1,
     width: "100%",
-    background: "#4054B2",
+    background: "#333",
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",

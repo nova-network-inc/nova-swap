@@ -11,12 +11,12 @@ function MenuItems() {
       mode="horizontal"
       style={{
         display: "flex",
-        fontSize: "14px",
+        fontSize: "13px",
         fontWeight: "300",
         width: "60%",
         justifyContent: "center",
         borderBottom: "0px",
-        background: "#4054B2",
+        background: "#333",
         color: "#000",
         text: {
           color: "#FFF",

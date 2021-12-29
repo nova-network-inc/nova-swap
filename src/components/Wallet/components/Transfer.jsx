@@ -33,6 +33,8 @@ const styles = {
     display: "flex",
     alignItems: "center",
     borderRadius: "30px",
+    fontSize: "13px",
+    fontWeight: "400",
   },
   textWrapper: { maxWidth: "80px", width: "100%" },
   row: {
@@ -153,7 +155,7 @@ function Transfer() {
           type="primary"
           size="large"
           loading={isPending}
-          style={{ width: "100%", marginTop: "25px", borderRadius: "50px" }}
+          style={{ width: "100%", marginTop: "25px", borderRadius: "30px" }}
           onClick={() => transfer()}
           disabled={!tx}
         >

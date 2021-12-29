@@ -12,7 +12,7 @@ const styles = {
     display: "flex",
     gap: "5px",
     backgroundColor: "rgba(255, 255, 255, 0.1)",
-    borderRadius: "5px",
+    borderRadius: "30px",
     alignItems: "center",
   },
 };
@@ -31,11 +31,11 @@ function Address(props) {
   const Copy = () => (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="26"
-      height="26"
+      width="16"
+      height="16"
       viewBox="0 0 24 24"
       strokeWidth="2"
-      stroke="#1780FF"
+      stroke="#333"
       fill="none"
       strokeLinecap="round"
       strokeLinejoin="round"
@@ -71,13 +71,13 @@ const Check = () => (
     height="24"
     viewBox="0 0 24 24"
     strokeWidth="3"
-    stroke="#21BF96"
+    stroke="#333"
     fill="none"
     strokeLinecap="round"
     strokeLinejoin="round"
   >
     <path stroke="none" d="M0 0h24v24H0z" fill="none" />
     <path d="M5 12l5 5l10 -10" />
-    <title id="copied-address">Copied!</title>
+    <title id="copied-address">Copied to Clipboard</title>
   </svg>
 );

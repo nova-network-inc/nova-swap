@@ -1,7 +1,17 @@
-*,
-*::before,
-*::after {
+*::before {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
   box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+*::after {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
 }
 
 ul[class],
@@ -9,7 +19,15 @@ ol[class] {
   padding: 0;
 }
 
-body,
+body {
+  font-family: "Roboto", Calibri, Arial, sans-serif;
+  background-color: #f0f0f0;
+  font-size: 16px;
+  color: #333;
+  -webkit-font-smoothing: antialiased;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  }
 h1,
 h2,
 h3,
@@ -53,8 +71,12 @@ article > * + * {
 }
 
 input,
-button,
+button {
+  color: #000;
+  background: #FFF;
+}
 textarea,
 select {
   font: inherit;
+  color: #000;
 }

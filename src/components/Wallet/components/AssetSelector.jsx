@@ -28,7 +28,12 @@ export default function AssetSelector({ setAsset, style }) {
   }
 
   return (
-    <Select onChange={handleChange} size="large" style={style}>
+    <Select onChange={handleChange} size="large" style={{
+      display: "flex",
+      alignItems: "center",
+      width: "100%",
+      gap: "8px",
+    }}>
       {fullBalance &&
         fullBalance.map((item, key) => (
           <Select.Option value={item["token_address"]} key={item["token_address"]}>
@@ -38,6 +43,7 @@ export default function AssetSelector({ setAsset, style }) {
                 alignItems: "center",
                 width: "100%",
                 gap: "8px",
+                borderRadius: "30",
               }}
             >
               <Image
@@ -53,6 +59,9 @@ export default function AssetSelector({ setAsset, style }) {
                   display: "flex",
                   justifyContent: "space-between",
                   width: "90%",
+                  borderRadius: "30%",
+                  fontSize: "12px",
+                  fontWeight: "500",
                 }}
               >
                 <p>{item.symbol}</p>

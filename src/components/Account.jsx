@@ -15,7 +15,7 @@ const styles = {
     alignItems: "center",
     width: "fit-content",
       border: "#222",
-    borderRadius: "3px",
+    borderRadius: "30px",
     backgroundColor: "rgb(244, 244, 244)",
     cursor: "pointer",
   },
@@ -51,10 +51,10 @@ function Account() {
           fontSize: "17px",
           fontWeight: "500",
         }}
-        style={{ fontSize: "16px", fontWeight: "500" }}
+        style={{ fontSize: "14px", fontWeight: "600" }}
         width="400px"
       >
-        Account
+        Connected Wallet
         <Card
           style={{
             marginTop: "10px",
@@ -76,9 +76,9 @@ function Account() {
           style={{
             width: "100%",
             marginTop: "10px",
-            borderRadius: "0.5rem",
-            fontSize: "16px",
-            fontWeight: "500",
+            borderRadius: "30px",
+            fontSize: "14px",
+            fontWeight: "300",
           }}
           onClick={() => {
             logout();

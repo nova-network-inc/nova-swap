@@ -17,7 +17,7 @@ const styles = {
   },
   button: {
     border: "#222",
-    borderRadius: "3px",
+    borderRadius: "30px",
   },
 };
 
