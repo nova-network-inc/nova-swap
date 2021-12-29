@@ -8,6 +8,7 @@
 .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-item-selected::after,
 .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-submenu-selected::after {
   border-bottom: 2px solid #FFF !important;
+  color: #FFF !important;
 }
 .ant-menu-horizontal > .ant-menu-item a { color: #FFF; },
 .ant-menu-horizontal > .ant-menu-item-selected a { color: #FFF; },

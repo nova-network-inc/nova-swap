@@ -13,7 +13,7 @@ export const c2 = new Intl.NumberFormat("en-us", {
   style: "currency",
   currency: "USD",
   minimumFractionDigits: 2,
-  maximumFractionDigits: 2,
+  maximumFractionDigits: 4,
 });
 
 /**

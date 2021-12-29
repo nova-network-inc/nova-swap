@@ -5,7 +5,7 @@ const styles = {
   token: {
     padding: "0 7px",
     height: "42px",
-    gap: "5px",
+    gap: "8px",
     width: "fit-content",
     display: "flex",
     justifyContent: "center",
@@ -13,6 +13,7 @@ const styles = {
     whiteSpace: "nowrap",
   },
 };
+
 function TokenPrice(props) {
   const { data: formattedData } = useTokenPrice(props);
 
@@ -25,7 +26,7 @@ function TokenPrice(props) {
   return (
     <div style={styles.token}>
       <img src={props.image || noLogoToken} alt="logo" style={{ height: props?.size || "35px" }} />
-      <span style={{ cursor: "pointer" }} onClick={toggleDisplayStyle} title={`Show in ${isUSDMode ? "ETH" : "USD"}`}>
+      <span style={{ cursor: "pointer" }} onClick={toggleDisplayStyle} title={`Show in ${isUSDMode ? "FTM" : "USD"}`}>
         {formattedData && (isUSDMode ? formattedData.formattedUsd : formattedData.formattedNative)}
       </span>
     </div>

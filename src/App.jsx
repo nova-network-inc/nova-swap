@@ -4,12 +4,14 @@ import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-d
 import Account from "components/Account";
 import Chains from "components/Chains";
 import ERC20Balance from "components/ERC20Balance";
+import TokenPrice from "components/TokenPrice";
 import ERC20Transfers from "components/ERC20Transfers";
 import InchDex from "components/InchDex";
 import Wallet from "components/Wallet";
 import { Layout, Tabs } from "antd";
 import "antd/dist/antd.css";
 import NativeBalance from "components/NativeBalance";
+import NativeTransactions from "components/NativeTransactions";
 import NFTBalance from "components/NFTBalance";
 import "./style.css";
 import Text from "antd/lib/typography/Text";
@@ -17,18 +19,27 @@ import Ramper from "components/Ramper";
 import MenuItems from "./components/MenuItems";
 const { Header, Footer } = Layout;
 
+// Defines the header style. CSS mixed up and spread throughout the code.
+
 const styles = {
+
+// General content styling.
+
   content: {
     display: "flex",
     justifyContent: "center",
     fontFamily: "Roboto, sans-serif",
-    color: "#4054B2",
+    color: "#FFF",
     marginTop: "130px",
     padding: "10px",
+    borderRadius: "10px",
     text: {
-      color: "#FFF",
+      color: "#333",
     },
   },
+
+// Top header styling.
+
   header: {
     position: "fixed",
     zIndex: 1,
@@ -38,22 +49,25 @@ const styles = {
     justifyContent: "space-between",
     alignItems: "center",
     fontFamily: "Roboto, sans-serif",
-    borderBottom: "2px solid rgba(0, 0, 0, 0.06)",
+    borderBottom: "0px",
     padding: "0 10px",
     text: {
       color: "#FFF",
     },
   },
+
+// Specific styling for menu items. Refer to the other CSS files for complementary styling.
+
   headerRight: {
     display: "flex",
     gap: "20px",
     alignItems: "center",
     fontSize: "14px",
     fontWeight: "600",
-    background: "#4054B2",
-    color: "#FFF"
+    color: "#FFF",
   },
 };
+
 const App = ({ isServerInfo }) => {
   const { isWeb3Enabled, enableWeb3, isAuthenticated, isWeb3EnableLoading } = useMoralis();
 
@@ -64,79 +78,84 @@ const App = ({ isServerInfo }) => {
 
   return (
     <Layout style={{ height: "100vh", overflow: "auto" }}>
+
       <Router>
+
+      // First column, where the company's logo currently sits.
+
         <Header style={styles.header}>
-        <a
-        href="./">
-        <img
-          src="https://novafinance.me/wp-content/uploads/2020/11/logo_282x292-white.png"
-          width="48" height="48" alt-text=""
-          ></img>
-          </a>
-          <MenuItems />
-          <div style={styles.headerRight}>
-            <Chains />
-            <NativeBalance />
-            <Account />
-          </div>
+        <a href="/swap"><img src="/img/headerLogo.png" width="48" height="48" alt-text="Header"></img></a>
+        <MenuItems />
+        <div style={styles.headerRight}>
+
+        {/* Defines the token to track on the header. Currently set as SNT. */}
+        <TokenPrice
+          address="0x69d17c151ef62421ec338a0c92ca1c1202a427ec"
+          chain="ftm"
+          image="/img/512SNT.png"
+          size="24px"
+        />
+
+        <NativeBalance />
+        <Chains />
+        <Account />
+        </div>
         </Header>
 
         <div style={styles.content}>
-          <Switch>
-            <Route path="/wallet">
-              <Wallet />
+        <Switch>
+
+        // Defines all URL routing for the app.
+
+        <Route path="/transfer">  <Wallet />  </Route>
+
+        <Route path="/swap">
+          <Tabs defaultActiveKey="1" style={{ alignItems: "center" }}>
+
+            <Tabs.TabPane tab={<span>Ethereum</span>} key="1">
+            <InchDex chain="eth" />
+            </Tabs.TabPane>
+
+            <Tabs.TabPane tab={<span>Binance Smart Chain</span>} key="2">
+            <InchDex chain="bsc" />
+            </Tabs.TabPane>
+
+            <Tabs.TabPane tab={<span>Polygon</span>} key="3">
+            <InchDex chain="polygon" />
+            </Tabs.TabPane>
+
+            </Tabs>
             </Route>
-            <Route path="/exchange">
-              <Tabs defaultActiveKey="1" style={{ alignItems: "center" }}>
-                <Tabs.TabPane tab={<span>Ethereum</span>} key="1">
-                  <InchDex chain="eth" />
-                </Tabs.TabPane>
-                <Tabs.TabPane tab={<span>Binance Smart Chain</span>} key="2">
-                  <InchDex chain="bsc" />
-                </Tabs.TabPane>
-                <Tabs.TabPane tab={<span>Polygon</span>} key="3">
-                  <InchDex chain="polygon" />
-                </Tabs.TabPane>
-              </Tabs>
-            </Route>
-            <Route path="/erc20balance">
-              <ERC20Balance />
-            </Route>
-            <Route path="/onramp">
-              <Ramper />
-            </Route>
-            <Route path="/nftBalance">
-              <NFTBalance />
-            </Route>
-            <Route path="/erc20transfers">
-              <ERC20Transfers />
-            </Route>
-            <Route path="/erc20balance">
-              <Redirect to="/erc20balance" />
-            </Route>
-            <Route path="/nonauthenticated">
-              <>Please login using the "Authenticate" button</>
-            </Route>
-          </Switch>
+
+        <Route path="/portfolio">  <ERC20Balance />  </Route>
+
+        <Route path="/nfts">  <NFTBalance />  </Route>
+
+        <Route path="/activity"> <ERC20Transfers /> </Route>
+
+        <Route path="/nonauthenticated">
+          <>Please login using the "Authenticate" button</>
+        </Route>
+
+        </Switch>
         </div>
-      </Router>
-      <Footer style={{ textAlign: "center" }}>
-        <Text style={{ display: "block" }}>
-          <b>Nova Network Inc.</b> © All rights reserved.{" "}
-        </Text>
-        <Text style={{ display: "block" }}>
-          dApp in <b>Alpha Version</b>, use it at your own risk. V.a090. For further information, please {""}
-          <a
-            target="_blank"
-            rel="noopener noreferrer"
-            href="https://novafinance.me/"
-          >
-            visit our website
-          </a>
-          .
-        </Text>
-      </Footer>
-    </Layout>
+        </Router>
+
+{/* Defines the footer for all pages. */}
+
+<Footer style={{ textAlign: "center" }}>
+
+  <Text style={{ display: "block" }}>
+  NovaSwap™ by <b><a href="https://novafinance.me/" target="_blank">Nova Network Inc.</a></b> © 2022. All rights reserved.{" "}
+  </Text>
+
+  <Text style={{ display: "block" }}>
+  This platform is in <b>Beta</b>, and might present bugs and errors. Use it at your own risk.
+  </Text>
+</Footer>
+
+</Layout>
+
   );
 };
 

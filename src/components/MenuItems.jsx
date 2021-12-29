@@ -12,7 +12,7 @@ function MenuItems() {
       style={{
         display: "flex",
         fontSize: "14px",
-        fontWeight: "500",
+        fontWeight: "300",
         width: "60%",
         justifyContent: "center",
         borderBottom: "0px",
@@ -24,21 +24,28 @@ function MenuItems() {
       }}
       defaultSelectedKeys={[pathname]}
     >
-    <Menu.Item key="/exchange">
-      <NavLink to="/exchange">Exchange</NavLink>
+    {/* Defines the menu items to display on the header. */}
+
+    <Menu.Item key="/swap">
+    <NavLink to="/swap">MultiSwap</NavLink>
     </Menu.Item>
-      <Menu.Item key="/wallet">
-        <NavLink to="/wallet">Transfer</NavLink>
-      </Menu.Item>
-      <Menu.Item key="/erc20balance">
-        <NavLink to="/erc20balance">My Portfolio</NavLink>
-      </Menu.Item>
-      <Menu.Item key="/nftBalance">
-        <NavLink to="/nftBalance">My NFTs</NavLink>
-      </Menu.Item>
-      <Menu.Item key="/erc20transfers">
-        <NavLink to="/erc20transfers">Account Activity</NavLink>
-      </Menu.Item>
+
+    <Menu.Item key="/transfer">
+    <NavLink to="/transfer">Transfer</NavLink>
+    </Menu.Item>
+
+    <Menu.Item key="/portfolio">
+    <NavLink to="/portfolio">My Portfolio</NavLink>
+    </Menu.Item>
+
+    <Menu.Item key="/nfts">
+    <NavLink to="/nfts">My NFTs</NavLink>
+    </Menu.Item>
+
+    <Menu.Item key="/activity">
+    <NavLink to="/activity">Account Activity</NavLink>
+    </Menu.Item>
+
     </Menu>
   );
 }

@@ -19,7 +19,7 @@ function ERC20Balance(props) {
       key: "logo",
       render: (logo) => (
         <img
-          src={logo || "https://etherscan.io/images/main/empty-token.png"}
+          src={logo || "/img/512Blank.png"}
           alt="nologo"
           width="28px"
           height="28px"
@@ -51,6 +51,7 @@ function ERC20Balance(props) {
       key: "token_address",
       render: (address) => getEllipsisTxt(address, 5),
     },
+
   ];
 
   return (

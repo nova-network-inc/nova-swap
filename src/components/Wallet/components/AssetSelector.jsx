@@ -41,12 +41,12 @@ export default function AssetSelector({ setAsset, style }) {
               }}
             >
               <Image
-                src={item.logo || "https://etherscan.io/images/main/empty-token.png"}
+                src={item.logo || "/img/512Blank.png"}
                 alt="nologo"
                 width="24px"
                 height="24px"
                 preview={false}
-                style={{ borderRadius: "15px" }}
+                style={{ borderRadius: "50px" }}
               />
               <div
                 style={{

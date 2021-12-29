@@ -17,22 +17,22 @@ const styles = {
   input: {
     width: "100%",
     outline: "none",
-    fontSize: "16px",
+    fontSize: "12px",
     whiteSpace: "nowrap",
     overflow: "hidden",
     textverflow: "ellipsis",
     appearance: "textfield",
     color: "#041836",
-    fontWeight: "700",
+    fontWeight: "400",
     border: "none",
     backgroundColor: "transparent",
-    borderRadius: "5px",
+    borderRadius: "30px",
   },
   select: {
     marginTop: "20px",
     display: "flex",
     alignItems: "center",
-    borderRadius: "5px",
+    borderRadius: "30px",
   },
   textWrapper: { maxWidth: "80px", width: "100%" },
   row: {
@@ -96,17 +96,17 @@ function Transfer() {
     txStatus
       .on("transactionHash", (hash) => {
         openNotification({
-          message: "New Transaction",
+          message: "New Transaction Created",
           description: `${hash}`,
         });
-        console.log("New Transaction", hash);
+        console.log("New Transaction Created", hash);
       })
       .on("receipt", (receipt) => {
         openNotification({
-          message: "New Receipt",
+          message: "Transaction Successful",
           description: `${receipt.transactionHash}`,
         });
-        console.log("New Receipt: ", receipt);
+        console.log("Transaction Hash: ", receipt);
         setIsPending(false);
       })
       .on("error", (error) => {
@@ -127,7 +127,7 @@ function Transfer() {
         </div>
         <div style={styles.select}>
           <div style={styles.textWrapper}>
-            <Text strong>Address:</Text>
+            <Text strong>Send to:</Text>
           </div>
           <AddressInput autoFocus onChange={setReceiver} />
         </div>
@@ -153,11 +153,11 @@ function Transfer() {
           type="primary"
           size="large"
           loading={isPending}
-          style={{ width: "100%", marginTop: "25px", borderRadius: "5px" }}
+          style={{ width: "100%", marginTop: "25px", borderRadius: "50px" }}
           onClick={() => transfer()}
           disabled={!tx}
         >
-          Transfer
+          Send ↗
         </Button>
       </div>
     </div>
