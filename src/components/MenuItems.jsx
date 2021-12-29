@@ -13,7 +13,7 @@ function MenuItems() {
         display: "flex",
         fontSize: "13px",
         fontWeight: "300",
-        width: "flex",
+        width: "60%",
         justifyContent: "center",
         borderBottom: "0px",
         background: "#333",
