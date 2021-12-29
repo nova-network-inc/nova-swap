@@ -107,6 +107,10 @@ const App = ({ isServerInfo }) => {
 
         // Defines all URL routing for the app.
 
+        <Route exact path="/">
+        <Redirect to="/swap" />
+        </Route>
+
         <Route path="/transfer">  <Wallet />  </Route>
 
         <Route path="/swap">
