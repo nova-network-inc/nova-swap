@@ -127,7 +127,7 @@ function InchDex({ chain }) {
   const ButtonState = useMemo(() => {
     if (chainIds?.[chainId] !== chain) return { isActive: false, text: `Wrong Network Selected` };
 
-    if (!fromAmount) return { isActive: false, text: "Enter an amount" };
+    if (!fromAmount) return { isActive: false, text: "Enter an Amount" };
     if (fromAmount && currentTrade) return { isActive: true, text: "Swap" };
     return { isActive: false, text: "Select tokens" };
   }, [fromAmount, currentTrade, chainId, chain]);

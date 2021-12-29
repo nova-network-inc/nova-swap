@@ -76,6 +76,12 @@ function NFTBalance() {
                       onClick={() => window.open(`${getExplorer(chainId)}address/${nft.token_address}`, "_blank")}
                     />
                   </Tooltip>,
+                  <Tooltip title="Go to Opera House™">
+                    <ShoppingCartOutlined
+                      onClick={() => window.open(`https://operahouse.online/`, "_blank")}
+                    />
+                  </Tooltip>,
+
                     ]}
                 style={{ width: 280, border: "2px solid #e7eaf3" }}
                 cover={
