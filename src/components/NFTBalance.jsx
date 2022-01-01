@@ -1,7 +1,14 @@
+// Developer comments on this file:
+// There is a NFT Transfer function embeded in the code that is currently not used;
+// As you can implement the function by simply calling it with a button, it currently
+// has a bug that won't allow users to transfer their NFTs properly. This is being
+// worked on, and that's why we have decided not to remove the function from completely,
+// but we recommend you not to use it until we further update and fix it.
+
 import React, { useState } from "react";
 import { useMoralis, useNFTBalances } from "react-moralis";
 import { Card, Image, Tooltip, Modal, Input, Skeleton } from "antd";
-import { FileSearchOutlined, SendOutlined, ShoppingCartOutlined } from "@ant-design/icons";
+import { FileSearchOutlined, ShoppingCartOutlined } from "@ant-design/icons";
 import { getExplorer } from "helpers/networks";
 import AddressInput from "./AddressInput";
 const { Meta } = Card;

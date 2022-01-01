@@ -4,15 +4,7 @@ import { useMoralis, useERC20Balances } from "react-moralis";
 import { Skeleton, Table } from "antd";
 import { getEllipsisTxt } from "../helpers/formatters";
 
-const styles = {
-  title: {
-    fontSize: "30px",
-    fontWeight: "600",
-    padding: "10px",
-  },
-};
-
-{/* The function below pulls all the information on the users ERC-20 token balances. */}
+// The function below pulls all the information on the users ERC-20 token balances.
 function ERC20Balance(props) {
   const { data: assets } = useERC20Balances(props);
   const { Moralis } = useMoralis();
@@ -53,7 +45,7 @@ function ERC20Balance(props) {
 
   ];
 
-{/* ---------- HTML Rendering Starts*/}
+// ---------- HTML Rendering Starts
 return (
   <div style={{ width: "1000px", padding: "0px" }}>
     <Skeleton loading={!assets}>
@@ -66,5 +58,5 @@ return (
   </div>
   );
 }
-{/* ---------- HTML Rendering Ends*/}
+// ---------- HTML Rendering Ends
 export default ERC20Balance;

@@ -11,11 +11,9 @@ import Wallet from "components/Wallet";
 import { Layout, Tabs } from "antd";
 import "antd/dist/antd.css";
 import NativeBalance from "components/NativeBalance";
-import NativeTransactions from "components/NativeTransactions";
 import NFTBalance from "components/NFTBalance";
 import "./style.css";
 import Text from "antd/lib/typography/Text";
-import Ramper from "components/Ramper";
 import MenuItems from "./components/MenuItems";
 const { Header, Footer } = Layout;
 
@@ -83,7 +81,7 @@ return (
   <Router>
   {/* First column, where the company's logo currently sits. */}
     <Header style={styles.header}>
-    <a href="/swap"><img src="/img/headerLogo.png" width="48" height="48" alt-text="Header"></img></a>
+    <a href="/swap"><img src="/img/headerLogo.png" width="48" height="48" alt="Header"></img></a>
   {/* Adds the MenuItems elements, which displays the main menu. */}
     <MenuItems />
     <div style={styles.headerRight}>
@@ -149,7 +147,7 @@ return (
 
   <Footer style={{ textAlign: "center" }}>
   <Text style={{ display: "block" }}>
-  NovaSwap™ by <b><a href="https://novafinance.me/" target="_blank">Nova Network Inc.</a></b> © 2022. All rights reserved.{" "}
+  NovaSwap™ by <b><a href="https://novafinance.me/" target="_blank" rel="noreferrer">Nova Network Inc.</a></b> © 2022. All rights reserved.{" "}
   </Text>
   <Text style={{ display: "block" }}>
   This platform is in <b>Beta</b>, and might present bugs and errors. Use it at your own risk.
@@ -158,8 +156,6 @@ return (
 </Layout>
   );
 };
-
-{/* ---------- HTML Rendering Ends*/}
 
 export const Logo = () => (
   <div style={{ display: "flex" }}>

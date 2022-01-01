@@ -21,7 +21,7 @@ const ContractMethods = ({ displayedContractFunctions, responses }) => {
             {responses[item.name]?.result && `Response: ${JSON.stringify(responses[item.name]?.result)}`}
           </Text>
           <Button type="primary" htmlType="submit" loading={responses[item?.name]?.isLoading}>
-            {item.stateMutability === "view" ? "Read🔎" : "Transact💸"}
+            {item.stateMutability === "view" ? "Read" : "Transact"}
           </Button>
         </Form.Item>
       </Form>
