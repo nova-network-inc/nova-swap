@@ -41,6 +41,6 @@ Once you have made all the changes you want to the code, you can use the command
 
 >yarn build
 
-<h3>White-label Solution</h3>
+<h3># White-label Solutions</h3>
 
 If you need some help to get it up and running, just reach out and we will be happy to help you on setting up your own white-labeled version of NovaSwap™.
