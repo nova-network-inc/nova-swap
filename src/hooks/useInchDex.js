@@ -45,7 +45,7 @@ const useInchDex = (chain) => {
     await doSwap(params)
       .then((receipt) => {
         if (receipt.statusCode !== 400) {
-          alert("Swap Complete");
+          alert("NovaSwap™ | Your swap has been successful!");
         }
         console.log(receipt);
       })

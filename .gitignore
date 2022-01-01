@@ -29,7 +29,3 @@ node_modules
 coverage
 coverage.json
 typechain
-
-#Truffle files
-/Truffle/build
-/Truffle/data
