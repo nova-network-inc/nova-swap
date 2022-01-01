@@ -18,12 +18,12 @@ Github is only needed if you're using git commands to clone, push, pull, etc.
  1. Assuming you already have a Moralis account and server running, before running the app, you will need to create a file in the main folder called '.env' to specify your server's URL and ID. You can use the file 'EXAMPLE.env' as a template, and just delete the 'EXAMPLE' word, leaving only the '.env' extension.
 
  2. In the '.env' file you will only need the two lines below, spcifying your Moralis Server ID and URL:
-<i>
+<br /><i>
  <p>REACT_APP_MORALIS_APPLICATION_ID = 'MORALIS SERVER ID'</p>
  <p>REACT_APP_MORALIS_SERVER_URL = 'MORALIS SERVER URL'</p>
 </i>
  3. After you have created and saved your '.env' file, just run the two commands below in your PowerShell, Command Prompt, Terminal, or whatever IDE you're using:
-<i>
+<br /><i>
  <p>'yarn install'</p>
  <p>'yarn start'</p>
 </i>
