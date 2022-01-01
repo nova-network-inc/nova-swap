@@ -26,5 +26,5 @@ Github is only needed if you're using git commands to clone, push, pull, etc.
 <i>
  <p>'yarn install'</p>
  <p>'yarn start'</p>
-
+</i>
  4. Done! You should have your NovaSwap™ up and running in your localhost just like that.
