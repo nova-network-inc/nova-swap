@@ -17,7 +17,7 @@ function AddressInput(props) {
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
-    if (validatedAddress) props.onChange(isDomain ? validatedAddress : address);
+  if (validatedAddress) props.onChange(isDomain ? validatedAddress : address);
   }, [props, validatedAddress, isDomain, address]);
 
   const updateAddress = useCallback(
