@@ -34,3 +34,13 @@ Github is only needed if you're using git commands to clone, push, pull, etc.
 <h3># Moralis Server</h3>
 
 If you don't have a Moralis Server, you will need to create one in order to get an ID and URL to make your NovaSwap™ fork to work. Explaining how to set up your Moralis Server falls outside the scope of this repository, but there are several tutorials on the internet you can use to learn how to do it. We recommend you visit their website at https://moralis.io/ and give it a try before even watching or reading any tutorials, because the process is very straight-forward.
+
+<h3># Build & Deploy</h3>
+
+Once you have made all the changes you want to the code, you can use the command line below to build your application and have it ready to be deployed.
+
+>yarn build
+
+<h3>White-label Solution</h3>
+
+If you need some help to get it up and running, just reach out and we will be happy to help you on setting up your own white-labeled version of NovaSwap™.
