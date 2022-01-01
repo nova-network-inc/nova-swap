@@ -20,7 +20,7 @@ Github is only needed if you're using git commands to clone, push, pull, etc.
 2. In the '.env' file you will only need the two lines below, spcifying your Moralis Server ID and URL:
 
 >REACT_APP_MORALIS_APPLICATION_ID = 'MORALIS SERVER ID'
-REACT_APP_MORALIS_SERVER_URL = 'MORALIS SERVER URL'
+>REACT_APP_MORALIS_SERVER_URL = 'MORALIS SERVER URL'
 
 3. After you have created and saved your '.env' file, just run the two commands below in your PowerShell, Command Prompt, Terminal, or whatever IDE you're using:
 
