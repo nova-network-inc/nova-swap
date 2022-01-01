@@ -25,10 +25,12 @@ Github is only needed if you're using git commands to clone, push, pull, etc.
 
 3. After you have created and saved your '.env' file, just run the two commands below in your PowerShell, Command Prompt, Terminal, or whatever IDE you're using:
 
-<br /><i>
- <p>
- yarn install
- yarn start
-</p></i>
+> yarn install
+
+>yarn start
 
  4. Done! You should have your NovaSwap™ up and running in your localhost just like that.
+
+<h3># Moralis Server</h3>
+
+If you don't have a Moralis Server, you will need to create one in order to get an ID and URL to make your NovaSwap™ fork to work. Explaining how to set up your Moralis Server falls outside the scope of this repository, but there are several tutorials on the internet you can use to learn how to do it. We recommend you visit their website at https://moralis.io/ and give it a try before even watching or reading any tutorials, because the process is very straight-forward.
