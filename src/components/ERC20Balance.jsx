@@ -1,8 +1,15 @@
 // My Portfolio
 
 import { useMoralis, useERC20Balances } from "react-moralis";
+import { useNativeBalance } from "react-moralis";
 import { Skeleton, Table } from "antd";
 import { getEllipsisTxt } from "../helpers/formatters";
+
+// Function to display the native network balance.
+function NativeBalance(props) {
+  const { data: balance } = useNativeBalance(props);
+  return <span>{balance.formatted}</span>;
+}
 
 // The function below pulls all the information on the users ERC-20 token balances.
 function ERC20Balance(props) {
@@ -47,14 +54,19 @@ function ERC20Balance(props) {
 
 // ---------- HTML Rendering Starts
 return (
-  <div style={{ width: "1000px", padding: "0px" }}>
-    <Skeleton loading={!assets}>
-    <Table
-      dataSource={assets}
-      columns={columns}
-      rowKey={(record) => {return record.token_address;}}
-    />
-    </Skeleton>
+
+  <div  style={{ textAlign: "left", whiteSpace: "nowrap", color: "#000", fontWeight: "500", fontSize: "14px" }}>
+    <p><b>Native Balance:</b> <NativeBalance /></p>
+    <br />
+    <div style={{ width: "1000px", padding: "0px" }}>
+      <Skeleton loading={!assets}>
+      <Table
+        dataSource={assets}
+        columns={columns}
+        rowKey={(record) => {return record.token_address;}}
+        />
+        </Skeleton>
+    </div>
   </div>
   );
 }

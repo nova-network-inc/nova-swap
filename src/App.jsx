@@ -91,6 +91,7 @@ return (
       chain="ftm"
       image="/img/512SNT.png"
       size="24px"
+      decimals="18"
     />
   {/* Displays the native balance of the selected network. */}
     <NativeBalance />
@@ -114,15 +115,19 @@ return (
       <Route path="/swap">
       <Tabs defaultActiveKey="1" style={{ alignItems: "center" }}>
 
-        <Tabs.TabPane tab={<span>Ethereum</span>} key="1">
+    {/* <Tabs.TabPane tab={<span>Fantom</span>} key="1">
+        <InchDex chain="0xfa" />
+        </Tabs.TabPane> */}
+
+        <Tabs.TabPane tab={<span>Ethereum</span>} key="2">
         <InchDex chain="eth" />
         </Tabs.TabPane>
 
-        <Tabs.TabPane tab={<span>Binance Smart Chain</span>} key="2">
+        <Tabs.TabPane tab={<span>Binance Smart Chain</span>} key="3">
         <InchDex chain="bsc" />
         </Tabs.TabPane>
 
-        <Tabs.TabPane tab={<span>Polygon</span>} key="3">
+        <Tabs.TabPane tab={<span>Polygon</span>} key="4">
         <InchDex chain="polygon" />
         </Tabs.TabPane>
 
