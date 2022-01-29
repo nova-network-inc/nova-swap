@@ -260,7 +260,7 @@ function InchDex({ chain }) {
                   style={{ borderRadius: "15px" }}
                 />
               ) : (
-                <span>Select a token</span>
+                <span>Select a Token</span>
               )}
               <span>{toToken?.symbol}</span>
               <Arrow />

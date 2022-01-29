@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
 import { useMoralis } from "react-moralis";
-import { tokenList } from './tokenLists/default';
 
 const useInchDex = (chain) => {
-const { Moralis, account } = useMoralis();
-const [tokenList, setTokenlist] = useState();
+  const { Moralis, account } = useMoralis();
+  const [tokenList, setTokenlist] = useState();
 
   useEffect(() => {
     if (!Moralis?.["Plugins"]?.["oneInch"]) return null;

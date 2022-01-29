@@ -12,8 +12,10 @@ const styles = {
     fontFamily: "Roboto, sans-serif",
     fontSize: "14px",
     padding: "10px",
+    borderRadius: "30px",
     a: {
     color: "#FFF",}
+
   },
   button: {
     border: "#222",
@@ -66,7 +68,7 @@ function Chains() {
     <Menu onClick={handleMenuClick}>
       {menuItems.map((item) => (
         <Menu.Item key={item.key} icon={item.icon} style={styles.item}>
-          <span style={{ marginLeft: "5px" }}>{item.value}</span>
+          <span style={{ marginLeft: "5px", borderRadius: "10px" }}>{item.value}</span>
         </Menu.Item>
       ))}
     </Menu>

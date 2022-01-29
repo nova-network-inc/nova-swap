@@ -10,14 +10,15 @@ function MenuItems() {
       theme="light"
       mode="horizontal"
       style={{
-        display: "flex",
+        display: "inline-flex",
         fontSize: "13px",
         fontWeight: "300",
-        width: "60%",
+        width: "fit-content",
+        minWidth: "60%",
         justifyContent: "center",
         borderBottom: "0px",
         background: "#333",
-        color: "#000",
+        color: "#FFF",
         text: {
           color: "#FFF",
         },
