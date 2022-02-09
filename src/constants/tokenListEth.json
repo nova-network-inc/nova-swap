@@ -9,14 +9,14 @@
       "symbol": "USDC",
       "name": "USD Coin",
       "decimals": 6,
-      "logoURI": "ipfs://QmXfzKRvjZz3u5JRgC4v5mGVbm9ahrUiB4DgzHBsnWbTMM",
+      "logoURI": "ipfs://QmXfzKRvjZz3u5JRgC4v5mGVbm9ahrUiB4DgzHBsnWbTMM"
     },
     {
       "address": "0x39AA39c021dfbaE8faC545936693aC917d5E7563",
       "symbol": "cUSDC",
       "name": "Compound USD Coin",
       "decimals": 8,
-      "logoURI": "ipfs://QmUSNbwUxUYNMvMksKypkgWs8unSm8dX2GjCPBVGZ7GGMr",
+      "logoURI": "ipfs://QmUSNbwUxUYNMvMksKypkgWs8unSm8dX2GjCPBVGZ7GGMr"
     }
   ],
 

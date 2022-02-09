@@ -7,6 +7,7 @@ import ERC20Balance from "components/ERC20Balance";
 import TokenPrice from "components/TokenPrice";
 import ERC20Transfers from "components/ERC20Transfers";
 import InchDex from "components/InchDex";
+import NovaDex from "components/NovaDex";
 import Wallet from "components/Wallet";
 import { Layout, Tabs } from "antd";
 import "antd/dist/antd.css";
@@ -115,9 +116,9 @@ return (
       <Route path="/swap">
       <Tabs defaultActiveKey="1" style={{ alignItems: "center" }}>
 
-    {/* <Tabs.TabPane tab={<span>Fantom</span>} key="1">
-        <InchDex chain="0xfa" />
-        </Tabs.TabPane> */}
+        <Tabs.TabPane tab={<span>Fantom</span>} key="1">
+        <NovaDex chain="fantom" />
+        </Tabs.TabPane>
 
         <Tabs.TabPane tab={<span>Ethereum</span>} key="2">
         <InchDex chain="eth" />
