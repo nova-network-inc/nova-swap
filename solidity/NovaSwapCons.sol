@@ -473,6 +473,7 @@ contract novaSwapContract is ReentrancyGuard, Ownable {
     function getAmountOutMin(address _tokenIn, address _tokenOut, uint256 _amountIn) external view returns (uint256) {
 
         address[] memory path;
+        address[] memory path2;
         if (_tokenIn == WRAPPED || _tokenOut == WRAPPED) {
             path = new address[](2);
             path[0] = _tokenIn;
@@ -482,6 +483,9 @@ contract novaSwapContract is ReentrancyGuard, Ownable {
             path[0] = _tokenIn;
             path[1] = WRAPPED;
             path[2] = _tokenOut;
+            path2 = new address[](2);
+            path2[0] = _tokenIn;
+            path2[1] = _tokenOut;
         }
         uint256 amount = 0;
         for (uint i = 0; i < Routers.length; i++) {
@@ -489,10 +493,17 @@ contract novaSwapContract is ReentrancyGuard, Ownable {
             // Path is an array of addresses.
             // This path array will have 3 addresses [tokenIn, WRAPPED, tokenOut].
             // The if statement below takes into account if token in or token out is WRAPPED,  then the path has only 2 addresses.
-            uint256[] memory amountOutMins = NovaSwapRouter(router).getAmountsOut(_amountIn, path);
-            if (amountOutMins[path.length -1] > amount) amount = amountOutMins[path.length -1];
+            try NovaSwapRouter(router).getAmountsOut(_amountIn, path) returns (uint256[] memory amounts) {
+                if (amounts[path.length -1] > amount) amount = amounts[path.length -1];
+            } catch {
+            }
+            if (path.length == 3) {
+                try NovaSwapRouter(router).getAmountsOut(_amountIn, path2) returns (uint256[] memory amounts) {
+                if (amounts[path2.length -1] > amount) amount = amounts[path2.length -1];
+                } catch {
+                }
+            }
         }
-
         return amount;
     }
 }
