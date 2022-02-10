@@ -159,7 +159,7 @@ function Transfer() {
           onClick={() => transfer()}
           disabled={!tx}
         >
-          Send ↗
+          Transfer
         </Button>
       </div>
     </div>

@@ -28,8 +28,7 @@ const styles = {
     display: "flex",
     justifyContent: "center",
     fontFamily: "Roboto, sans-serif",
-    color: "#FFF",
-    marginTop: "130px",
+    marginTop: "50px",
     padding: "10px",
     borderRadius: "30px",
     text: {
@@ -40,16 +39,16 @@ const styles = {
 // Top header styling.
 
   header: {
-    position: "fixed",
-    zIndex: 1,
-    width: "100%",
-    background: "#333",
     display: "flex",
-    justifyContent: "space-between",
+    position: "center",
+    zIndex: 1,
+    background: "#333",
+    justifyContent: "center",
     alignItems: "center",
     fontFamily: "Roboto, sans-serif",
     borderBottom: "0px",
     padding: "0 10px",
+    minWidth: "48px",
     text: {
       color: "#FFF",
     },
@@ -61,7 +60,7 @@ const styles = {
     display: "flex",
     gap: "20px",
     alignItems: "center",
-    fontSize: "14px",
+    fontSize: "12px",
     fontWeight: "600",
     color: "#FFF",
   },
@@ -80,9 +79,10 @@ return (
 <Layout style={{ height: "100vh", overflow: "auto" }}>
 
   <Router>
+
   {/* First column, where the company's logo currently sits. */}
     <Header style={styles.header}>
-    <a href="/swap"><img src="/img/headerLogo.png" width="48" height="48" alt="Header"></img></a>
+    <p style={{minWidth: "48px"}}><a href="/swap"><img src="/img/headerLogo.png" width="48" height="48" alt="Header"></img></a></p>
   {/* Adds the MenuItems elements, which displays the main menu. */}
     <MenuItems />
     <div style={styles.headerRight}>
@@ -124,7 +124,7 @@ return (
         <InchDex chain="eth" />
         </Tabs.TabPane>
 
-        <Tabs.TabPane tab={<span>Binance Smart Chain</span>} key="3">
+        <Tabs.TabPane tab={<span>Binance</span>} key="3">
         <InchDex chain="bsc" />
         </Tabs.TabPane>
 
@@ -153,7 +153,7 @@ return (
 
   <Footer style={{ textAlign: "center" }}>
   <Text style={{ display: "block" }}>
-  NovaSwap™ by <b><a href="https://novafinance.me/" target="_blank" rel="noreferrer">Nova Network Inc.</a></b> © 2022. All rights reserved.{" "}
+  NovaSwap™ by <b><a href="https://novanetwork.io/" target="_blank" rel="noreferrer">Nova Network Inc.</a></b> © 2022. All rights reserved.{" "}
   </Text>
   <Text style={{ display: "block" }}>
   This platform is in <b>Beta</b>, and might present bugs and errors. Use it at your own risk.

@@ -1,33 +1,30 @@
 .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-item:hover::after,
+
 .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-submenu:hover::after,
+
 .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-item-active::after,
+
 .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-submenu-active::after,
+
 .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-item-open::after,
+
 .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-submenu-open::after,
+
 .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-item-selected::after,
+
 .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-submenu-selected::after {
   border-bottom: 2px solid #333 !important;
 }
 
 .ant-menu-horizontal > .ant-menu-item a {
-  color: #FFF;
-  font-size: 13px;
-  font-weight: 300;
-}
-
-.ant-iconn { color: #FFF; }
-
-.ant-submenu-horizontal > .ant-menu-item a {
-  color: #FFF;
-  font-size: 13px;
-  font-weight: 300;
-
+  color: #333;
+  font-size: 16px;
+  font-weight: 400;
 }
 
 .ant-menu-horizontal > .ant-menu-item-selected a {
+
 }
-
-
 
 .ant-menu-horizontal > .ant-menu-item a:hover {
   color: #999 !important;

@@ -39,6 +39,15 @@ export const networkConfigs = {
     blockExplorerUrl: "https://ftmscan.com/",
     wrapped: "0x21be370d5312f44cb42ce377bc9b8a0cef1a4c83",
   },
+  "0x57": {
+  chainId: 87,
+  chainName: "Nova Network",
+  currencyName: "NBX",
+  currencySymbol: "BX",
+  rpcUrl: "http://rpc.novanetwork.io/",
+  blockExplorerUrl: "http://explorer.novanetwork.io/",
+  wrapped: "0xca3051d8832c1fEE71b534A247b05654EDB8a4Be",
+  },
 };
 
 export const getNativeByChain = (chain) =>

@@ -28,6 +28,10 @@ const menuItems = [
     key: "0xfa",
     value: "Fantom Opera",
   },
+//  {
+//    key: "0x57",
+//    value: "Nova Network",
+//  },
   {
     key: "0x1",
     value: "Ethereum",
