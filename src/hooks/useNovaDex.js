@@ -13,33 +13,37 @@ const useNovaDex = (chain) => {
   const contractInstance = useRef()
 
   const getQuote = useCallback(async (params) => {
-    if (contractInstance.current) {
-      let result = null
-      if (params.fromToken.address === params.toToken.address) {
-        return {
-          statusCode: 400,
+    try {
+      if (contractInstance.current) {
+        let result = null
+        if (params.fromToken.address === params.toToken.address) {
+          return {
+            statusCode: 400,
+          }
+        } else {
+          result = await contractInstance.current.methods.getAmountOutMin(
+            IsNative(params.fromToken.address) ? params.fromToken.wrappedAddress: params.fromToken.address,
+            IsNative(params.toToken.address) ? params.toToken.wrappedAddress: params.toToken.address,
+            Moralis.Units.Token(params.fromAmount, params.fromToken.decimals).toString()
+          )
+          .call()
+          .catch(() => null)
+        }
+        if (result !== null) {
+          return {
+            statusCode: 200,
+            fromTokenAmount: params.fromAmount,
+            toTokenAmount: Number(result) / Number(Moralis.Units.Token(1, params.toToken.decimals))
+          }
+        } else {
+          return {
+            statusCode: 400,
+          }
         }
       } else {
-        result = await contractInstance.current.methods.getAmountOutMin(
-          IsNative(params.fromToken.address) ? params.fromToken.wrappedAddress: params.fromToken.address,
-          IsNative(params.toToken.address) ? params.toToken.wrappedAddress: params.toToken.address,
-          Moralis.Units.Token(params.fromAmount, params.fromToken.decimals).toString()
-        )
-        .call()
-        .catch(() => null)
+        return 0
       }
-      if (result !== null) {
-        return {
-          statusCode: 200,
-          fromTokenAmount: params.fromAmount,
-          toTokenAmount: Number(result) / Number(Moralis.Units.Token(1, params.toToken.decimals))
-        }
-      } else {
-        return {
-          statusCode: 400,
-        }
-      }
-    } else {
+    } catch (err) {
       return 0
     }
   }, [contractInstance, Moralis])
