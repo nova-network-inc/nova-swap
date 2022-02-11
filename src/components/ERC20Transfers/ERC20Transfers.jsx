@@ -6,6 +6,9 @@ import { getExplorer } from "../../helpers/networks";
 import "antd/dist/antd.css";
 import { Skeleton, Table } from "antd";
 import { useERC20Transfers } from "hooks/useERC20Transfers";
+import {
+  HistoryOutlined,
+  } from '@ant-design/icons';
 
 function ERC20Transfers() {
   const { ERC20Transfers, chainId } = useERC20Transfers();
@@ -106,24 +109,25 @@ function ERC20Transfers() {
   let key = 0;
   return (
     <div style={{ width: "1000px", padding: "0px" }}>
-    <h2>Token Transactions</h2>
+    <h2><HistoryOutlined /> Native Transactions</h2>
+    <br />
+    <Skeleton loading={!nativeTransactions || nativeTransactions.length === 0}>
+      <Table
+        dataSource={nativeTransactions}
+        columns={columnsnative}
+        rowKey={(record) => {
+          key++;
+          return `${record.transaction_hash}-${key}`;
+        }}
+      />
+    </Skeleton>
+    <br />
+    <h2><HistoryOutlined /> ERC-20 Token Transactions</h2>
     <br />
       <Skeleton loading={!ERC20Transfers}>
         <Table
           dataSource={ERC20Transfers}
           columns={columns}
-          rowKey={(record) => {
-            key++;
-            return `${record.transaction_hash}-${key}`;
-          }}
-        />
-      </Skeleton>
-      <h2>Native Transactions</h2>
-      <br />
-      <Skeleton loading={!nativeTransactions || nativeTransactions.length === 0}>
-        <Table
-          dataSource={nativeTransactions}
-          columns={columnsnative}
           rowKey={(record) => {
             key++;
             return `${record.transaction_hash}-${key}`;
