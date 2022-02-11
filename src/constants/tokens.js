@@ -6,7 +6,7 @@ const fantomTokens = [
     name: "Nova Token",
     symbol: "NBK"
   }, {
-    address: "0x69d17c151ef62421ec338a0c92ca1c1202a427ec",
+    address: "0x69D17C151EF62421ec338a0c92ca1c1202A427EC",
     decimals: 18,
     logoURI: "https://cloudflare-ipfs.com/ipfs/QmbQ9qCsHv9dqtSxqDvnAjChzirpk8pKB3a22HPumKxk7o",
     name: "Supernova Token",

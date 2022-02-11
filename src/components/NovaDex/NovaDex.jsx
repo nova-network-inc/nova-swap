@@ -80,12 +80,12 @@ function InchDex({ chain }) {
 
   const fromTokenAmountUsd = useMemo(() => {
     if (!fromTokenPriceUsd || !fromAmount) return null;
-    return `~$ ${(fromAmount * fromTokenPriceUsd).toFixed(4)}`;
+    return `~$ ${(fromAmount * fromTokenPriceUsd)?.toFixed(4)}`;
   }, [fromTokenPriceUsd, fromAmount]);
 
   const toTokenAmountUsd = useMemo(() => {
     if (!toTokenPriceUsd || !quote) return null;
-    return `~$ ${(Moralis.Units.FromWei(quote?.toTokenAmount, quote?.toToken?.decimals) * toTokenPriceUsd).toFixed(4)}`;
+    return `~$ ${(Moralis.Units.FromWei(quote?.toTokenAmount, quote?.toToken?.decimals) * toTokenPriceUsd)?.toFixed(4)}`;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [toTokenPriceUsd, quote]);
 
@@ -180,11 +180,11 @@ function InchDex({ chain }) {
     const { symbol: toSymbol } = toToken;
     const pricePerToken = parseFloat(
       tokenValue(fromTokenAmount, fromToken["decimals"]) / tokenValue(toTokenAmount, toToken["decimals"])
-    ).toFixed(6);
+    )?.toFixed(6);
     return (
       <Text style={styles.priceSwap}>
         Price:{" "}
-        <Text>{`1 ${toSymbol} = ${pricePerToken} ${fromSymbol} ($${tokenPricesUSD[[toToken["address"]]].toFixed(
+        <Text>{`1 ${toSymbol} = ${pricePerToken} ${fromSymbol} ($${tokenPricesUSD[[toToken["address"]]]?.toFixed(
           6
         )})`}</Text>
       </Text>
@@ -260,7 +260,7 @@ function InchDex({ chain }) {
                 placeholder="0.00"
                 style={styles.input}
                 readOnly
-                value={quote ? parseFloat(quote?.toTokenAmount.toFixed(6)) : ""}
+                value={quote ? parseFloat(quote?.toTokenAmount?.toFixed(6)) : ""}
               />
               <Text style={{ fontWeight: "600", color: "333" }}>{toTokenAmountUsd}</Text>
             </div>
