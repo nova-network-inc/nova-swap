@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useCallback } from "react";
 import { useMoralis } from "react-moralis";
 import DexModal from "./components/DexModal";
 import useInchDex from "hooks/useInchDex";
@@ -89,6 +89,32 @@ function InchDex({ chain }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [toTokenPriceUsd, quote]);
 
+  const changeFromToken = useCallback((newToken) => {
+    if (newToken) {
+      if (toToken && newToken.symbol === toToken.symbol) {
+        if (fromToken) {
+          setToToken(fromToken)
+          setFromToken(toToken)
+        }
+      } else {
+        setFromToken(newToken)
+      }
+    }
+  }, [toToken, fromToken])
+
+  const changeToToken = useCallback((newToken) => {
+    if (newToken) {
+      if (fromToken && newToken.symbol === fromToken.symbol) {
+        if (fromToken) {
+          setFromToken(toToken)
+          setToToken(fromToken)
+        }
+      } else {
+        setToToken(newToken)
+      }
+    }
+  }, [fromToken, toToken])
+
   // tokenPrices
   useEffect(() => {
     if (!isInitialized || !fromToken || !chain) return null;
@@ -121,8 +147,11 @@ function InchDex({ chain }) {
   }, [chain, isInitialized, toToken]);
 
   useEffect(() => {
-    if (!tokenList) return null;
-    setFromToken(tokenList[nativeAddress]);
+    if (!tokenList || !tokenList.length) return null;
+    const nativeToken = tokenList.find(({ address }) => address === nativeAddress)
+    if (nativeToken) setFromToken(nativeToken);
+    const novaToken = tokenList.find(({ symbol }) => symbol === 'SNT')
+    if (novaToken) setToToken(novaToken)
   }, [tokenList]);
 
   const ButtonState = useMemo(() => {
@@ -231,7 +260,7 @@ function InchDex({ chain }) {
                 placeholder="0.00"
                 style={styles.input}
                 readOnly
-                value={quote ? quote?.toTokenAmount?.toFixed(6) : ""}
+                value={quote ? parseFloat(quote?.toTokenAmount.toFixed(6)) : ""}
               />
               <Text style={{ fontWeight: "600", color: "333" }}>{toTokenAmountUsd}</Text>
             </div>
@@ -310,7 +339,7 @@ function InchDex({ chain }) {
         <DexModal
           open={isFromModalActive}
           onClose={() => setFromModalActive(false)}
-          setToken={setFromToken}
+          setToken={changeFromToken}
           tokenList={tokenList}
         />
       </Modal>
@@ -325,7 +354,7 @@ function InchDex({ chain }) {
         <DexModal
           open={isToModalActive}
           onClose={() => setToModalActive(false)}
-          setToken={setToToken}
+          setToken={changeToToken}
           tokenList={tokenList}
         />
       </Modal>

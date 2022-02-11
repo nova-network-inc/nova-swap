@@ -21,13 +21,23 @@ const useNovaDex = (chain) => {
             statusCode: 400,
           }
         } else {
-          result = await contractInstance.current.methods.getAmountOutMin(
-            IsNative(params.fromToken.address) ? params.fromToken.wrappedAddress: params.fromToken.address,
-            IsNative(params.toToken.address) ? params.toToken.wrappedAddress: params.toToken.address,
-            Moralis.Units.Token(params.fromAmount, params.fromToken.decimals).toString()
-          )
-          .call()
-          .catch(() => null)
+          const toAddress = IsNative(params.toToken.address) ? params.toToken.wrappedAddress: params.toToken.address
+          const fromAddress = IsNative(params.fromToken.address) ? params.fromToken.wrappedAddress: params.fromToken.address
+          if (toAddress !== fromAddress) {
+            result = await contractInstance.current.methods.getAmountOutMin(
+              IsNative(params.fromToken.address) ? params.fromToken.wrappedAddress: params.fromToken.address,
+              IsNative(params.toToken.address) ? params.toToken.wrappedAddress: params.toToken.address,
+              Moralis.Units.Token(params.fromAmount, params.fromToken.decimals).toString()
+            )
+            .call()
+            .catch(() => null)
+          } else {
+            return {
+              statusCode: 200,
+              fromTokenAmount: params.fromAmount,
+              toTokenAmount: params.fromAmount
+            }
+          }
         }
         if (result !== null) {
           return {

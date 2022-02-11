@@ -34,6 +34,7 @@ function DexModal({ open, onClose, setToken, tokenList }) {
   return (
     <div style={{ overflow: "auto", height: "500px" }}>
       <Input
+        autoFocus
         value={search}
         onChange={(e) => setSearch(e.target.value)}
         style={{ ...styles.input, paddingLeft: 20 }}

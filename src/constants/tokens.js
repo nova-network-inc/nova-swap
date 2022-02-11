@@ -19,13 +19,13 @@ const fantomTokens = [
     name: "Fantom",
     symbol: "FTM"
   }, {
-    address: "0x38aca5484b8603373acc6961ecd57a6a594510a3",
-    decimals: 18,
+    address: "0x321162Cd933E2Be498Cd2267a90534A804051b11",
+    decimals: 8,
     logoURI: "https://novanetwork.io/wp-content/uploads/2020/11/Bitcoin-BTC-icon.png",
     name: "Bitcoin",
     symbol: "WBTC"
   }, {
-    address: "0x25c130b2624cf12a4ea30143ef50c5d68cefa22f",
+    address: "0x74b23882a30290451A17c44f4F05243b6b58C76d",
     decimals: 18,
     logoURI: "https://novanetwork.io/wp-content/uploads/2020/11/Ethereum-ETH-icon.png",
     name: "Ethereum",
@@ -55,7 +55,7 @@ const fantomTokens = [
     name: "USD Coin",
     symbol: "USDC"
   }, {
-    address: "0x940f41f0ec9ba1a34cf001cc03347ac092f5f6b5",
+    address: "0x049d68029688eabf473097a2fc38ef61633a3c7a",
     decimals: 6,
     logoURI: "https://novanetwork.io/wp-content/uploads/2020/11/Tether-USDT-icon.png",
     name: "Tether USDT",
