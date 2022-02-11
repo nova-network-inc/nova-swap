@@ -12,7 +12,6 @@ import {
   HistoryOutlined,
   } from '@ant-design/icons';
 import { NavLink } from "react-router-dom";
-import 'remixicon/fonts/remixicon.css';
 
 function MenuItems() {
   const { pathname } = useLocation();

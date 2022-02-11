@@ -1,0 +1,42 @@
+{
+  "name": "Ethereum",
+  "logoURI": "ipfs://QmUSNbwUxUYNMvMksKypkgWs8unSm8dX2GjCPBVGZ7GGMr",
+  "chainId": 1,
+
+  "tokens": [
+    {
+      "address": "0x04068da6c83afcfa0e13ba15a6696662335d5b75",
+      "symbol": "USDC",
+      "name": "USD Coin",
+      "decimals": 6,
+      "logoURI": "ipfs://QmXfzKRvjZz3u5JRgC4v5mGVbm9ahrUiB4DgzHBsnWbTMM"
+    },
+    {
+      "address": "0x21be370d5312f44cb42ce377bc9b8a0cef1a4c83",
+      "symbol": "WFTM",
+      "name": "Wrapped Fantom",
+      "decimals": 18,
+      "logoURI": "https://ftmscan.com/token/images/wFtm_32.png"
+    },
+    {
+      "address": "0x69d17c151ef62421ec338a0c92ca1c1202a427ec",
+      "symbol": "SNT",
+      "name": "Supernova Token",
+      "decimals": 18,
+      "logoURI": "https://ftmscan.com/token/images/supernovatoken_32.png"
+    },
+    {
+      "address": "0x8a7dc00bbfcd44344de7bc6e01d82d518032110c",
+      "symbol": "NBK",
+      "name": "Nova Token",
+      "decimals": 18,
+      "logoURI": "https://ftmscan.com/token/images/novabank_32.png"
+    }
+  ],
+
+  "version": {
+    "major": 1,
+    "minor": 0,
+    "patch": 0
+  }
+}
