@@ -9,11 +9,15 @@ import { useERC20Transfers } from "hooks/useERC20Transfers";
 
 function ERC20Transfers() {
   const { ERC20Transfers, chainId } = useERC20Transfers();
-  const { nativeTransactions } = useNativeTransactions();
+  const { nativeTransactions, getNativeTransations, isLoading } = useNativeTransactions();
   const { Moralis } = useMoralis();
+
   useEffect(() => {
-    console.log(nativeTransactions)
-  }, [nativeTransactions])
+    if (!isLoading && getNativeTransations) {
+      getNativeTransations()
+    }
+  }, [isLoading, getNativeTransations])
+
   const columnsnative = [
     {
       title: 'From',
