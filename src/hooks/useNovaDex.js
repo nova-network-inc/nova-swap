@@ -68,7 +68,7 @@ const useNovaDex = (chain) => {
           const abi = erc20Contract.abi
           const contract = new web3.eth.Contract(abi, fromToken.address)
           const allowance = await contract.methods.allowance(account, contractInfo.address).call();
-          if (Number(allowance) < Number(amount)))
+          if (Number(allowance) < Number(amount))
             await contract.methods.approve(contractInfo.address, Moralis.Units.Token(fromAmount, 18)).send({ from: account })
         }
         
