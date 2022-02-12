@@ -5,12 +5,14 @@
 // worked on, and that's why we have decided not to remove the function from completely,
 // but we recommend you not to use it until we further update and fix it.
 
-import React, { useState } from "react";
+import React, { useCallback, useEffect, useReducer, useState } from "react";
 import { useMoralis, useNFTBalances } from "react-moralis";
 import { Card, Image, Tooltip, Modal, Input, Skeleton } from "antd";
 import { FileSearchOutlined, ShoppingCartOutlined, RightOutlined } from "@ant-design/icons";
 import { getExplorer } from "helpers/networks";
 import AddressInput from "./AddressInput";
+import { useIPFS } from "hooks/useIPFS";
+
 const { Meta } = Card;
 
 const styles = {
@@ -26,6 +28,35 @@ const styles = {
   },
 };
 
+function asyncArrayReducer(state, action) {
+  switch (action.type) {
+    case 'pending': {
+      return {status: 'pending', data: null, error: null}
+    }
+    case 'resolved': {
+      return {status: 'resolved', data: action.data, error: null}
+    }
+    case 'update': {
+      const { token_id, token_address } = action.data
+      const { data } = state
+      const newData = data?.map((nft) => {
+        if (token_id === nft.token_id && token_address === nft.token_address) {
+          return { ...nft, ...action.data }
+        } else {
+          return nft
+        }
+      })
+      return {status: 'resolved', data: newData, error: null}
+    }
+    case 'rejected': {
+      return {status: 'rejected', data: null, error: action.error}
+    }
+    default: {
+      throw new Error(`Unhandled action type: ${action.type}`)
+    }
+  }
+}
+
 function NFTBalance() {
   const { data: NFTBalances } = useNFTBalances();
   const { Moralis, chainId } = useMoralis();
@@ -34,6 +65,14 @@ function NFTBalance() {
   const [amountToSend, setAmount] = useState(null);
   const [nftToSend, setNftToSend] = useState(null);
   const [isPending, setIsPending] = useState(false);
+  const [state, dispatch] = useReducer(asyncArrayReducer, {
+    status: 'idle',
+    data: null,
+    error: null
+  })
+  const { resolveLink } = useIPFS()
+
+  const { data: nfts, status, error } = state
 
   async function transfer(nft, amount, receiver) {
     const options = {
@@ -43,7 +82,7 @@ function NFTBalance() {
       contractAddress: nft.token_address,
     };
 
-    if (options.type === "erc1155") {
+    if (options.type.toLowerCase() === "erc1155") {
       options.amount = amount;
     }
 
@@ -68,12 +107,35 @@ function NFTBalance() {
     setAmount(e.target.value);
   };
 
+  useEffect(() => {
+    if (NFTBalances && NFTBalances.result && NFTBalances.result.length) {
+      dispatch({ type: 'resolved', data: NFTBalances.result })
+    }
+  }, [NFTBalances])
+
+  useEffect(() => {
+    (async () => {
+      if (NFTBalances?.result?.length) {
+        const getMetaData = async (nft) => {
+          try {
+            const { token_uri, token_id, token_address } = nft
+            const response = await fetch(token_uri)
+            const metadata = await response.json()
+            const { image, name } = metadata
+            dispatch({ type: 'update', data: { token_id, token_address, image: resolveLink(image), name }})
+          } catch (err) {
+          }
+        }
+        Promise.all(NFTBalances?.result.map((nft) => getMetaData(nft)))
+      }
+    }) ()
+  }, [NFTBalances, dispatch, resolveLink])
+
   return (
     <>
       <div style={styles.NFTs}>
-        <Skeleton loading={!NFTBalances?.result}>
-          {NFTBalances?.result &&
-            NFTBalances.result.map((nft, index) => (
+        <Skeleton loading={!nfts}>
+          {nfts?.map((nft, index) => (
               <Card
                 hoverable
                 actions={[
