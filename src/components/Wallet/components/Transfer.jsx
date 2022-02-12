@@ -128,7 +128,11 @@ function Transfer() {
           <div style={styles.textWrapper}>
             <Text strong>Send to:</Text>
           </div>
-          <AddressInput autoFocus onChange={setReceiver} />
+          <AddressInput autoFocus onChange={setReceiver} style={{
+            borderRadius: "2px",
+            fontSize: "12pt",
+          }}
+          placeholder="Wallet address... (eg. 0x...)"/>
         </div>
         <div style={styles.select}>
           <div style={styles.textWrapper}>
@@ -140,13 +144,23 @@ function Transfer() {
             onChange={(e) => {
               setAmount(`${e.target.value}`);
             }}
+            style={{
+              borderRadius: "2px",
+              fontSize: "12pt",
+            }}
+            placeholder="0,00"
           />
         </div>
         <div style={styles.select}>
           <div style={styles.textWrapper}>
             <Text strong>Asset:</Text>
           </div>
-          <AssetSelector setAsset={setAsset} style={{ width: "100%" }} />
+          <AssetSelector setAsset={setAsset} style={{
+            width: "100%",
+            fontSize: "12pt",
+            borderRadius: "30px",
+           }}
+           />
         </div>
         <Button
           type="primary"

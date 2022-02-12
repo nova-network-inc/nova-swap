@@ -109,19 +109,6 @@ function ERC20Transfers() {
   let key = 0;
   return (
     <div style={{ width: "1000px", padding: "0px" }}>
-    <h2><HistoryOutlined /> Native Transactions</h2>
-    <br />
-    <Skeleton loading={!nativeTransactions || nativeTransactions.length === 0}>
-      <Table
-        dataSource={nativeTransactions}
-        columns={columnsnative}
-        rowKey={(record) => {
-          key++;
-          return `${record.transaction_hash}-${key}`;
-        }}
-      />
-    </Skeleton>
-    <br />
     <h2><HistoryOutlined /> ERC-20 Token Transactions</h2>
     <br />
       <Skeleton loading={!ERC20Transfers}>
@@ -134,6 +121,19 @@ function ERC20Transfers() {
           }}
         />
       </Skeleton>
+      <br />
+    <h2><HistoryOutlined /> Native Transactions</h2>
+    <br />
+    <Skeleton loading={!nativeTransactions || nativeTransactions.length === 0}>
+      <Table
+        dataSource={nativeTransactions}
+        columns={columnsnative}
+        rowKey={(record) => {
+          key++;
+          return `${record.transaction_hash}-${key}`;
+        }}
+      />
+    </Skeleton>
     </div>
   );
 }

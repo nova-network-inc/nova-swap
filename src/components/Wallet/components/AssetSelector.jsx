@@ -1,6 +1,7 @@
 import { useERC20Balance } from "hooks/useERC20Balance";
 import { useMoralis, useNativeBalance } from "react-moralis";
 import { Image, Select } from "antd";
+
 import { useMemo } from "react";
 
 export default function AssetSelector({ setAsset, style }) {
@@ -33,17 +34,18 @@ export default function AssetSelector({ setAsset, style }) {
       alignItems: "center",
       width: "100%",
       gap: "8px",
+      border: "0px solid #c0c0c0",
+      borderRadius: "30px"
     }}>
       {fullBalance &&
         fullBalance.map((item, key) => (
-          <Select.Option value={item["token_address"]} key={item["token_address"]}>
+          <Select.Option value={item["token_address"]} key={item["token_address"]} style={{borderRadius: "30px"}}>
             <div
               style={{
                 display: "flex",
                 alignItems: "center",
                 width: "100%",
                 gap: "8px",
-                borderRadius: "30",
               }}
             >
               <Image
@@ -59,12 +61,11 @@ export default function AssetSelector({ setAsset, style }) {
                   display: "flex",
                   justifyContent: "space-between",
                   width: "90%",
-                  borderRadius: "30%",
                   fontSize: "12px",
                   fontWeight: "500",
                 }}
               >
-                <p>{item.symbol}</p>
+                <p>{item.name} ({item.symbol})</p>
                 <p style={{ alignSelf: "right" }}>
                   ({parseFloat(Moralis.Units.FromWei(item.balance, item.decimals).toFixed(6))})
                 </p>

@@ -19,7 +19,7 @@ const styles = {
   card: {
     boxShadow: "0 0.5rem 1.2rem rgb(189 197 209 / 20%)",
     border: "1px solid #e7eaf3",
-    borderRadius: "30px",
+    borderRadius: "20px",
     width: "500px",
     fontSize: "14px",
     fontWeight: "400",
@@ -34,7 +34,7 @@ function Wallet() {
         <div style={styles.header}>
           <Blockie scale={5} avatar currentWallet style />
           <Address size="6" copyable />
-          <NativeBalance />
+
         </div>
       }
     >

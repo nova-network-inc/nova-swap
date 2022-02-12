@@ -37,7 +37,16 @@ function DexModal({ open, onClose, setToken, tokenList }) {
         autoFocus
         value={search}
         onChange={(e) => setSearch(e.target.value)}
-        style={{ ...styles.input, paddingLeft: 20 }}
+        style={{ ...styles.input,
+          padding: "10px",
+          fontSize: "11pt",
+          fontWeight: "400",
+          textAlign: "center",
+          borderRadius: "30px",
+          margin: "10px auto 10px auto",
+          maxWidth: "80%"
+         }}
+        placeholder="Search by name, symbol..."
       />
       {!modalTokenList
         ? null

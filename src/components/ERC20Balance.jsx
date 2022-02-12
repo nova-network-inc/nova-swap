@@ -58,7 +58,7 @@ return (
   <div  style={{ textAlign: "left", whiteSpace: "nowrap", color: "#000", fontWeight: "500", fontSize: "14px" }}>
     <p><b>Native Balance:</b> <NativeBalance /></p>
     <br />
-    <div style={{ width: "1000px", padding: "0px" }}>
+    <div style={{ width: "1000px", padding: "0px", borderRadius: "30px" }}>
       <Skeleton loading={!assets}>
       <Table
         dataSource={assets}
