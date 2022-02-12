@@ -8,7 +8,7 @@
 import React, { useState } from "react";
 import { useMoralis, useNFTBalances } from "react-moralis";
 import { Card, Image, Tooltip, Modal, Input, Skeleton } from "antd";
-import { FileSearchOutlined, ShoppingCartOutlined } from "@ant-design/icons";
+import { FileSearchOutlined, ShoppingCartOutlined, RightOutlined } from "@ant-design/icons";
 import { getExplorer } from "helpers/networks";
 import AddressInput from "./AddressInput";
 const { Meta } = Card;
@@ -37,7 +37,7 @@ function NFTBalance() {
 
   async function transfer(nft, amount, receiver) {
     const options = {
-      type: nft.contract_type,
+      type: nft.contract_type?.toLowerCase(),
       tokenId: nft.token_id,
       receiver: receiver,
       contractAddress: nft.token_address,
@@ -68,7 +68,6 @@ function NFTBalance() {
     setAmount(e.target.value);
   };
 
-  console.log("NFTBalances", NFTBalances);
   return (
     <>
       <div style={styles.NFTs}>
@@ -84,12 +83,16 @@ function NFTBalance() {
                     />
                   </Tooltip>,
                   <Tooltip title="Go to Opera House™">
+                    <RightOutlined
+                      onClick={() => handleTransferClick(nft)}
+                    />
+                  </Tooltip>,
+                  <Tooltip title="Go to Opera House™">
                     <ShoppingCartOutlined
                       onClick={() => window.open(`https://operahouse.online/`, "_blank")}
                     />
                   </Tooltip>,
-
-                    ]}
+                ]}
                 style={{ width: 280, border: "2px solid #e7eaf3" }}
                 cover={
                   <Image
