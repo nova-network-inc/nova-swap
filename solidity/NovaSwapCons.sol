@@ -367,13 +367,17 @@ contract novaSwapContract is ReentrancyGuard, Ownable {
         }
 
         // select router
-        uint256 amount = 0;
-        for (uint i = 0; i < Routers.length; i++) {
-            address router = Routers[i];
-            uint256[] memory amountOutMins = NovaSwapRouter(router).getAmountsOut(amountIn, path);
-            if (amountOutMins[path.length -1] > amount) {
-                amount = amountOutMins[path.length -1];
-                properRouter = router;
+        if (_tokenIn == 0x69D17C151EF62421ec338a0c92ca1c1202A427EC || _tokenOut == 0x69D17C151EF62421ec338a0c92ca1c1202A427EC) {
+            properRouter = Routers[0];
+        } else {
+            uint256 amount = 0;
+            for (uint i = 0; i < Routers.length; i++) {
+                address router = Routers[i];
+                uint256[] memory amountOutMins = NovaSwapRouter(router).getAmountsOut(amountIn, path);
+                if (amountOutMins[path.length -1] > amount) {
+                    amount = amountOutMins[path.length -1];
+                    properRouter = router;
+                }
             }
         }
 
@@ -411,13 +415,17 @@ contract novaSwapContract is ReentrancyGuard, Ownable {
         address properRouter;
 
         // select router
-        uint256 amount = 0;
-        for (uint i = 0; i < Routers.length; i++) {
-            address router = Routers[i];
-            uint256[] memory amountOutMins = NovaSwapRouter(router).getAmountsOut(amountIn, path);
-            if (amountOutMins[path.length -1] > amount) {
-                amount = amountOutMins[path.length -1];
-                properRouter = router;
+        if (_tokenIn == 0x69D17C151EF62421ec338a0c92ca1c1202A427EC) {
+            properRouter = Routers[0];
+        } else {
+            uint256 amount = 0;
+            for (uint i = 0; i < Routers.length; i++) {
+                address router = Routers[i];
+                uint256[] memory amountOutMins = NovaSwapRouter(router).getAmountsOut(amountIn, path);
+                if (amountOutMins[path.length -1] > amount) {
+                    amount = amountOutMins[path.length -1];
+                    properRouter = router;
+                }
             }
         }
 
@@ -452,14 +460,19 @@ contract novaSwapContract is ReentrancyGuard, Ownable {
         path[0] = WRAPPED;
         path[1] = _tokenOut;
 
+        
         // select router
-        uint256 amount = 0;
-        for (uint i = 0; i < Routers.length; i++) {
-            address router = Routers[i];
-            uint256[] memory amountOutMins = NovaSwapRouter(router).getAmountsOut(_amountIn - feeAmount, path);
-            if (amountOutMins[path.length -1] > amount) {
-                amount = amountOutMins[path.length -1];
-                properRouter = router;
+        if (_tokenOut == 0x69D17C151EF62421ec338a0c92ca1c1202A427EC) {
+            properRouter = Routers[0];
+        } else {
+            uint256 amount = 0;
+            for (uint i = 0; i < Routers.length; i++) {
+                address router = Routers[i];
+                uint256[] memory amountOutMins = NovaSwapRouter(router).getAmountsOut(_amountIn - feeAmount, path);
+                if (amountOutMins[path.length -1] > amount) {
+                    amount = amountOutMins[path.length -1];
+                    properRouter = router;
+                }
             }
         }
 
@@ -499,7 +512,7 @@ contract novaSwapContract is ReentrancyGuard, Ownable {
             }
             if (path.length == 3) {
                 try NovaSwapRouter(router).getAmountsOut(_amountIn, path2) returns (uint256[] memory amounts) {
-                if (amounts[path2.length -1] > amount) amount = amounts[path2.length -1];
+                    if (amounts[path2.length -1] > amount) amount = amounts[path2.length -1];
                 } catch {
                 }
             }
