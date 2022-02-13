@@ -10,7 +10,9 @@ const fantomTokens = [
     decimals: 18,
     logoURI: "https://cloudflare-ipfs.com/ipfs/QmbQ9qCsHv9dqtSxqDvnAjChzirpk8pKB3a22HPumKxk7o",
     name: "Supernova Token",
-    symbol: "SNT"
+    symbol: "SNT",
+    withFee: true,
+    slippage: 5
   }, {
     address: "0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
     wrappedAddress: "0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83",

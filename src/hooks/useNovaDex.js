@@ -79,20 +79,39 @@ const useNovaDex = (chain) => {
             account
           ).send({ from: account, value: amount })
         } else if (IsNative(params.toToken.address)) {
-          await contractInstance.current.methods.swapExactTokensForETH(
-            amount,
-            1,
-            fromToken.address,
-            account
-          ).send({ from: account })
+          if (params.fromToken.withFee) {
+            await contractInstance.current.methods.swapExactTokensForETHSupportingFeeOnTransferTokens(
+              amount,
+              1,
+              fromToken.address,
+              account,
+            ).send({ from: account })
+          } else {
+            await contractInstance.current.methods.swapExactTokensForETH(
+              amount,
+              1,
+              fromToken.address,
+              account,
+            ).send({ from: account })
+          }
         } else {
-          await contractInstance.current.methods.swapExactTokensForTokens(
-            fromToken.address,
-            toToken.address,
-            amount,
-            1,
-            account
-          ).send({ from: account })
+          if (params.fromToken.withFee || params.toToken.withFee) {
+            await contractInstance.current.methods.swapExactTokensForTokensSupportingFeeOnTransferTokens(
+              fromToken.address,
+              toToken.address,
+              amount,
+              1,
+              account,
+            ).send({ from: account })
+          } else {
+            await contractInstance.current.methods.swapExactTokensForTokens(
+              fromToken.address,
+              toToken.address,
+              amount,
+              1,
+              account,
+            ).send({ from: account })
+          }
         }
         
       }

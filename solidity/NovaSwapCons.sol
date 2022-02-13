@@ -63,6 +63,20 @@ abstract contract ReentrancyGuard {
     }
 }
 
+library SafeMath {
+    function add(uint256 x, uint256 y) internal pure returns (uint256 z) {
+        require((z = x + y) >= x, 'ds-math-add-overflow');
+    }
+
+    function sub(uint256 x, uint256 y) internal pure returns (uint256 z) {
+        require((z = x - y) <= x, 'ds-math-sub-underflow');
+    }
+
+    function mul(uint256 x, uint256 y) internal pure returns (uint256 z) {
+        require(y == 0 || (z = x * y) / y == x, 'ds-math-mul-overflow');
+    }
+}
+
 // transfer helper library
 library TransferHelper {
     function safeApprove(address token, address to, uint value) internal {
@@ -226,6 +240,14 @@ interface NovaSwapRouter {
         uint256 deadline
     ) external returns (uint256[] memory amounts);
 
+    function swapExactTokensForTokensSupportingFeeOnTransferTokens(
+        uint amountIn,
+        uint amountOutMin,
+        address[] calldata path,
+        address to,
+        uint deadline
+    ) external;
+
     function swapExactETHForTokens(
         uint amountOutMin,
         address[] calldata path,
@@ -236,9 +258,24 @@ interface NovaSwapRouter {
         payable
         returns (uint[] memory amounts);
 
+    function swapExactETHForTokensSupportingFeeOnTransferTokens(
+        uint amountOutMin,
+        address[] calldata path,
+        address to,
+        uint deadline
+    ) external payable;
+
     function swapExactTokensForETH(uint amountIn, uint amountOutMin, address[] calldata path, address to, uint deadline)
         external
         returns (uint[] memory amounts);
+
+    function swapExactTokensForETHSupportingFeeOnTransferTokens(
+        uint amountIn,
+        uint amountOutMin,
+        address[] calldata path,
+        address to,
+        uint deadline
+    ) external;
 }
 
 
@@ -264,6 +301,7 @@ interface NovaSwapFactory {
 // main contract
 contract novaSwapContract is ReentrancyGuard, Ownable {
 
+    using SafeMath for uint256;
     // Set the address of the UniswapV2 router.
     address[] private Routers;
 
@@ -304,7 +342,7 @@ contract novaSwapContract is ReentrancyGuard, Ownable {
         Routers.push(routerAddress);
     }
 
-    function takeTokenFee(address _tokenIn, uint256 amount)  private returns (uint256) {
+    function takeTokenFee(address _tokenIn, uint256 amount) internal returns (uint256) {
         // check the amount to send fee
         require(amount >= 100, "Not Enough Output");
 
@@ -345,10 +383,77 @@ contract novaSwapContract is ReentrancyGuard, Ownable {
         // Next we need to allow the Uniswap V2 router to spend the token we just sent to this contract.
         // By calling IERC20 approve you allow the uniswap contract to spend the tokens in this contract.
 
-        // send fee
-        uint fee = takeTokenFee(_tokenIn, _amountIn);
+        // send fee to admin
+        uint256 fee = takeTokenFee(_tokenIn, _amountIn);
 
         uint256 amountIn = _amountIn - fee;
+
+        // // Path is an array of addresses.
+        // // This path array will have 3 addresses [tokenIn, WRAPPED, tokenOut].
+        // // The 'if' statement below takes into account if token in or token out is WRAPPED,  then the path has only 2 addresses.
+        address[] memory path;
+        address properRouter;
+        if (_tokenIn == WRAPPED || _tokenOut == WRAPPED) {
+            path = new address[](2);
+            path[0] = _tokenIn;
+            path[1] = _tokenOut;
+        } else {
+            path = new address[](3);
+            path[0] = _tokenIn;
+            path[1] = WRAPPED;
+            path[2] = _tokenOut;
+        }
+
+        // select router
+         if (_tokenIn == 0x69D17C151EF62421ec338a0c92ca1c1202A427EC || _tokenOut == 0x69D17C151EF62421ec338a0c92ca1c1202A427EC) {
+            properRouter = Routers[0];
+        } else {
+            uint256 amount = 0;
+            for (uint i = 0; i < Routers.length; i++) {
+                address router = Routers[i];
+                uint256[] memory amountOutMins = NovaSwapRouter(router).getAmountsOut(amountIn, path);
+                if (amountOutMins[path.length -1] > amount) {
+                    amount = amountOutMins[path.length -1];
+                    properRouter = router;
+                }
+            }
+        }
+
+        // approve tokens to router contract address
+        TransferHelper.safeApprove(_tokenIn, properRouter, amountIn);
+
+        // // // Then, we will call swapExactTokensForTokens.
+        // // // For the deadline we will pass in block.timestamp.
+        // // // The deadline is the latest time the trade is valid for.
+        NovaSwapRouter(properRouter).swapExactTokensForTokens(amountIn, _amountOutMin, path, _to, block.timestamp);
+    }
+
+    function swapExactTokensForTokensSupportingFeeOnTransferTokens(
+        address _tokenIn,
+        address _tokenOut,
+        uint256 _amountIn,
+        uint256 _amountOutMin,
+        address _to
+    )
+        nonReentrant
+        external
+    {
+        
+        // require(_amountIn >= 100, "No enough amount");
+        // First we need to transfer the amount in tokens from the msg.sender to this contract.
+        // This contract will then have the amount of in tokens to be traded.
+        uint256 beforeAmount = IERC20(_tokenIn).balanceOf(address(this));
+        TransferHelper.safeTransferFrom(_tokenIn, msg.sender, address(this), _amountIn);
+        uint256 afterAmount = IERC20(_tokenIn).balanceOf(address(this));
+
+        uint256 amountIn = afterAmount.sub(beforeAmount);
+
+        // Next we need to allow the Uniswap V2 router to spend the token we just sent to this contract.
+        // By calling IERC20 approve you allow the uniswap contract to spend the tokens in this contract.
+
+        // send fee to admin
+        uint256 fee = takeTokenFee(_tokenIn, amountIn);
+        amountIn = amountIn - fee;
 
         // // Path is an array of addresses.
         // // This path array will have 3 addresses [tokenIn, WRAPPED, tokenOut].
@@ -380,16 +485,13 @@ contract novaSwapContract is ReentrancyGuard, Ownable {
                 }
             }
         }
-
         // approve tokens to router contract address
         TransferHelper.safeApprove(_tokenIn, properRouter, amountIn);
-
         // // // Then, we will call swapExactTokensForTokens.
         // // // For the deadline we will pass in block.timestamp.
         // // // The deadline is the latest time the trade is valid for.
-        NovaSwapRouter(properRouter).swapExactTokensForTokens(amountIn, _amountOutMin, path, _to, block.timestamp);
+        NovaSwapRouter(properRouter).swapExactTokensForTokensSupportingFeeOnTransferTokens(amountIn, _amountOutMin, path, _to, block.timestamp);
     }
-
     // This function is used to swap tokens to eth
     function swapExactTokensForETH(
         uint256 _amountIn,
@@ -402,11 +504,61 @@ contract novaSwapContract is ReentrancyGuard, Ownable {
     {
         // send token from user to contract
         TransferHelper.safeTransferFrom(_tokenIn, msg.sender, address(this), _amountIn);
-
+        
         // send fee to admin
-        uint fee = takeTokenFee(_tokenIn, _amountIn);
+        uint256 fee = takeTokenFee(_tokenIn, _amountIn);
 
         uint256 amountIn = _amountIn - fee;
+
+        address[] memory path;
+        path = new address[](2);
+        path[0] = _tokenIn;
+        path[1] = WRAPPED;
+        address properRouter;
+
+        // select router
+         if (_tokenIn == 0x69D17C151EF62421ec338a0c92ca1c1202A427EC) {
+            properRouter = Routers[0];
+        } else {
+            uint256 amount = 0;
+            for (uint i = 0; i < Routers.length; i++) {
+                address router = Routers[i];
+                uint256[] memory amountOutMins = NovaSwapRouter(router).getAmountsOut(amountIn, path);
+                if (amountOutMins[path.length -1] > amount) {
+                    amount = amountOutMins[path.length -1];
+                    properRouter = router;
+                }
+            }
+        }
+
+        // approve to router
+        TransferHelper.safeApprove(_tokenIn, properRouter, amountIn);
+
+        // call swap
+        NovaSwapRouter(properRouter).swapExactTokensForETH(amountIn, _amountOutMin, path, _to, block.timestamp);
+    }
+
+    function swapExactTokensForETHSupportingFeeOnTransferTokens(
+        uint256 _amountIn,
+        uint256 _amountOutMin,
+        address _tokenIn,
+        address _to
+    )
+        nonReentrant
+        external
+    {
+        uint256 beforeAmount = IERC20(_tokenIn).balanceOf(address(this));
+        TransferHelper.safeTransferFrom(_tokenIn, msg.sender, address(this), _amountIn);
+        uint256 afterAmount = IERC20(_tokenIn).balanceOf(address(this));
+
+        uint256 amountIn = afterAmount.sub(beforeAmount);
+
+        // Next we need to allow the Uniswap V2 router to spend the token we just sent to this contract.
+        // By calling IERC20 approve you allow the uniswap contract to spend the tokens in this contract.
+
+        // send fee to admin
+        uint256 fee = takeTokenFee(_tokenIn, amountIn);
+        amountIn = amountIn - fee;
 
         address[] memory path;
         path = new address[](2);
@@ -433,7 +585,7 @@ contract novaSwapContract is ReentrancyGuard, Ownable {
         TransferHelper.safeApprove(_tokenIn, properRouter, amountIn);
 
         // call swap
-        NovaSwapRouter(properRouter).swapExactTokensForETH(amountIn, _amountOutMin, path, _to, block.timestamp);
+        NovaSwapRouter(properRouter).swapExactTokensForETHSupportingFeeOnTransferTokens(amountIn, _amountOutMin, path, _to, block.timestamp);
     }
 
     function swapExactETHForTokens(
@@ -479,6 +631,51 @@ contract novaSwapContract is ReentrancyGuard, Ownable {
         // call swap
         NovaSwapRouter(properRouter).swapExactETHForTokens{ value: _amountIn- feeAmount }(_amountOutMin, path, _to, block.timestamp);
     }
+
+    function swapExactETHForTokensSupportingFeeOnTransferTokens(
+        uint256 _amountOutMin,
+        address _tokenOut,
+        address _to
+    )
+        nonReentrant
+        payable
+        external
+    {
+        uint256 _amountIn = msg.value;
+        require(_amountIn >= 100, "Not Enough Output");
+
+        // calculate fee
+        uint256 feeAmount = _amountIn / 100;
+
+        // send fee to amdin
+        TransferHelper.safeTransferETH(ADMIN_ADDR, feeAmount);
+
+        address properRouter;
+        address[] memory path;
+        path = new address[](2);
+        path[0] = WRAPPED;
+        path[1] = _tokenOut;
+
+        
+        // select router
+         if (_tokenOut == 0x69D17C151EF62421ec338a0c92ca1c1202A427EC) {
+            properRouter = Routers[0];
+        } else {
+            uint256 amount = 0;
+            for (uint i = 0; i < Routers.length; i++) {
+                address router = Routers[i];
+                uint256[] memory amountOutMins = NovaSwapRouter(router).getAmountsOut(_amountIn - feeAmount, path);
+                if (amountOutMins[path.length -1] > amount) {
+                    amount = amountOutMins[path.length -1];
+                    properRouter = router;
+                }
+            }
+        }
+
+        // call swap
+        NovaSwapRouter(properRouter).swapExactETHForTokensSupportingFeeOnTransferTokens{ value: _amountIn- feeAmount }(_amountOutMin, path, _to, block.timestamp);
+    }
+
 
     // This function will return the minimum amount from a swap.
     // Input the 3 parameters below and it will return the minimum amount out.
