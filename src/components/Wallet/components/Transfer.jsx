@@ -158,7 +158,7 @@ function Transfer() {
           <AssetSelector setAsset={setAsset} style={{
             width: "100%",
             fontSize: "12pt",
-            borderRadius: "30px",
+            borderRadius: "2px",
            }}
            />
         </div>
