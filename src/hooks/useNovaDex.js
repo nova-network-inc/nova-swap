@@ -3,8 +3,10 @@ import tokens from 'constants/tokens'
 import { useChain, useMoralis } from 'react-moralis'
 import contracts from 'contracts/swapContract'
 import erc20Contract from 'contracts/erc20Contract'
+import wrappedContract from 'contracts/wrappedContract'
 
 const IsNative = (address) => address === "0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee";
+const IsWrapped = (address) => address === "0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83";
 
 const useNovaDex = (chain) => {
   const { web3, isWeb3Enabled, Moralis, account } = useMoralis()
@@ -64,7 +66,7 @@ const useNovaDex = (chain) => {
       const amount = Moralis.Units.Token(fromAmount, fromToken.decimals).toString();
       const contractInfo = contracts[chain]
       if (contractInstance.current) {
-        if (fromToken.address !== "0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee") {
+        if (!IsNative(fromToken.address) && !(IsWrapped(fromToken.address) && IsNative(params.toToken.address))) {
           const abi = erc20Contract.abi
           const contract = new web3.eth.Contract(abi, fromToken.address)
           const allowance = await contract.methods.allowance(account, contractInfo.address).call();
@@ -73,13 +75,23 @@ const useNovaDex = (chain) => {
         }
         
         if (IsNative(params.fromToken.address)) {
-          await contractInstance.current.methods.swapExactETHForTokens(
-            1,
-            toToken.address,
-            account
-          ).send({ from: account, value: amount })
+          if (IsWrapped(params.toToken.address)) {
+            const abi = wrappedContract.abi
+            const contract = new web3.eth.Contract(abi, fromToken.address)
+            await contract.methods.deposit().send({ from: account, value: amount })
+          } else {
+            await contractInstance.current.methods.swapExactETHForTokens(
+              1,
+              toToken.address,
+              account
+            ).send({ from: account, value: amount })
+          }
         } else if (IsNative(params.toToken.address)) {
-          if (params.fromToken.withFee) {
+          if (IsWrapped(params.fromToken.address)) {
+            const abi = wrappedContract.abi
+            const contract = new web3.eth.Contract(abi, fromToken.address)
+            await contract.methods.withdraw(amount).send({ from: account })
+          } else if (params.fromToken.withFee) {
             await contractInstance.current.methods.swapExactTokensForETHSupportingFeeOnTransferTokens(
               amount,
               1,
