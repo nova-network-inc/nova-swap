@@ -34,7 +34,7 @@ function Account() {
   if (!isAuthenticated) {
   return (
     <div style={styles.account} onClick={() => authenticate({ signingMessage: "Welcome to NovaSwap™! By signing this message you authorise the dapp to connect to your wallet so you can use all of its Web3 features." })}>
-      <p style={styles.text}>Connect Wallet</p>
+      <p style={styles.text}>Connect</p>
       </div>
     );
   }
