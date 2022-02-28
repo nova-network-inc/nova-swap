@@ -20,8 +20,8 @@ function MenuItems() {
   return (
 
     <Menu
-      mode="inline-flex"
-      theme="light"
+      mode="flex"
+      theme="dark"
       mode="horizontal"
       style={{
         display: "inline",
@@ -38,8 +38,6 @@ function MenuItems() {
 
       defaultSelectedKeys={[pathname]}
     >
-
-
 
     {/* Defines the menu items to display on the header. */}
 

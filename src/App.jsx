@@ -18,6 +18,8 @@ import Text from "antd/lib/typography/Text";
 import MenuItems from "./components/MenuItems";
 const { Header, Footer } = Layout;
 
+const isDesktopResolution = window.screen.width > 992
+
 // Defines the header style. CSS mixed up and spread throughout the code. Needs to be cleanned up and consolidated into a single CSS file.
 
 const styles = {
@@ -57,6 +59,7 @@ const styles = {
 // Specific styling for menu items. Refer to the other CSS files for complementary styling.
 
   headerRight: {
+    maxWidth: "80%",
     display: "flex",
     gap: "20px",
     alignItems: "center",
@@ -95,9 +98,13 @@ return (
       decimals="18"
     />
   {/* Displays the native balance of the selected network. */}
+  {isDesktopResolution && (
     <NativeBalance />
+  )}
   {/* Displays the list of available chains. */}
+  {isDesktopResolution && (
     <Chains />
+  )}
   {/* Displays the 'Connect Wallet' button, or the wallet addresss if already connected. */}
     <Account />
     </div>
