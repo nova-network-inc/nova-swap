@@ -6,7 +6,7 @@
 .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-submenu-open::after,
 .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-item-selected::after,
 .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-submenu-selected::after {
-  border-bottom: 2px solid #333 !important;
+  border-bottom: 2px solid #001529 !important;
 }
 
 .ant-menu-horizontal > .ant-menu-item a {
@@ -46,66 +46,66 @@
 /* Defines tabs, and other elements such as the chain display on the DEX */
 
 .ant-tabs-tab {
-  color: #333;
+  color: #001529;
   font-size: 14px;
   font-weight: 500;
 }
 
 .ant-tabs-tab:active {
-  color: #333;
+  color: #001529;
 }
 
 .ant-tabs-tab:hover {
-  color: #333;
+  color: #001529;
 }
 
 .ant-tabs-tab-btn:active {
-    color: #333;
+    color: #001529;
 }
 
 .ant-tabs-nav-list {
-    color: #333;
+    color: #001529;
 }
 
 /* Defines action button styles. Applies to all buttons in the platform. */
 
 .ant-btn {
-  color: #333;
+  color: #001529;
   background: #FFF;
-  border: 1px solid #333;
+  border: 1px solid #001529;
   border-radius: 50px;
   text-align: center;
 }
 
 .ant-btn:hover {
-  color: #333;
+  color: #001529;
   background: #FFF;
-  border: 1px solid #333;
+  border: 1px solid #001529;
   border-radius: 50px;
   text-align: center;
 }
 
 .ant-btn:active {
-  color: #333;
+  color: #001529;
   background: #FFF;
-  border: 1px solid #333;
+  border: 1px solid #001529;
   border-radius: 50px;
   text-align: center;
 }
 
 .ant-btn-primary {
     color: #FFF;
-    background: #333;
+    background: #001529;
     border-radius: 50px;
     text-align: center;
 }
 .ant-btn-primary:hover {
   color: #FFF;
-  background: #333;
+  background: #001529;
 }
 .ant-btn-primary:active {
   color: #FFF;
-  background: #333;
+  background: #001529;
 }
 
 /* Pagination elements. */
@@ -114,7 +114,7 @@
   border: 0px;
   border-color: transparent;
   border-radius: 30px;
-  color: #333;
+  color: #001529;
   background: transparent;
 }
 .ant-pagination-item:hover {
@@ -142,3 +142,7 @@
 .ant-select-lg {}
 .ant-select-single {}
 .ant-select-show-arrow {}
+  .ant-menu-dark .ant-menu-submenu-active, .ant-menu-dark .ant-menu-submenu-open, .ant-menu-dark .ant-menu-submenu-selected, .ant-menu-dark .ant-menu-submenu-title {
+      color: #fff;
+      background-color: transparent;
+  }

@@ -30,7 +30,7 @@ function MenuItems() {
         maxWidth: "800px",
         justifyContent: "left",
         background: "transparent",
-        color: "#333",
+        color: "#001529",
         border: "0px",
         text: {
         },

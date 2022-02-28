@@ -14,7 +14,7 @@ const styles = {
     flexDirection: "column",
     alignItems: "center",
     gap: "5px",
-    color: "#333",
+    color: "#001529",
   },
   card: {
     boxShadow: "0 0.5rem 1.2rem rgb(189 197 209 / 20%)",

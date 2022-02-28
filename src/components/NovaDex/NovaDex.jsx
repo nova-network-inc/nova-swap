@@ -14,6 +14,7 @@ import useNovaDex from "hooks/useNovaDex";
 const styles = {
   card: {
     width: "100%",
+    maxWidth: "420px",
     boxShadow: "0 0.5rem 1.2rem rgb(189 197 209 / 20%)",
     border: "1px solid #e7eaf3",
     borderRadius: "1rem",
@@ -31,7 +32,7 @@ const styles = {
     display: "flex",
     justifyContent: "space-between",
     fontSize: "15px",
-    color: "#333",
+    color: "#001529",
     marginTop: "8px",
     padding: "0 10px",
   },
@@ -195,7 +196,7 @@ function InchDex({ chain }) {
     <>
       <Card style={styles.card} bodyStyle={{ padding: "18px" }}>
         <Card style={{ borderRadius: "5px", border: "0px" }} bodyStyle={{ padding: "0.8rem" }}>
-          <div style={{ marginBottom: "0px", fontSize: "14px", color: "#333" }}>From</div>
+          <div style={{ marginBottom: "0px", fontSize: "14px", color: "#001529" }}>From</div>
           <div
             style={{
               display: "flex",
@@ -210,7 +211,7 @@ function InchDex({ chain }) {
                 onChange={setFromAmount}
                 value={fromAmount}
               />
-              <Text style={{ fontWeight: "600", color: "#333" }}>{fromTokenAmountUsd}</Text>
+              <Text style={{ fontWeight: "600", color: "#001529" }}>{fromTokenAmountUsd}</Text>
             </div>
             <Button
               style={{
@@ -247,7 +248,7 @@ function InchDex({ chain }) {
           <ArrowDownOutlined />
         </div>
         <Card style={{ borderRadius: "5px", border: "0px" }} bodyStyle={{ padding: "0.8rem" }}>
-          <div style={{ marginBottom: "5px", fontSize: "14px", color: "#333" }}>To</div>
+          <div style={{ marginBottom: "5px", fontSize: "14px", color: "#001529" }}>To</div>
           <div
             style={{
               display: "flex",

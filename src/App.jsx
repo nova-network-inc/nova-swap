@@ -34,7 +34,7 @@ const styles = {
     padding: "10px",
     borderRadius: "30px",
     text: {
-      color: "#333",
+      color: "#001529",
     },
   },
 
@@ -44,7 +44,7 @@ const styles = {
     display: "flex",
     position: "center",
     zIndex: 1,
-    background: "#333",
+    background: "#001529",
     justifyContent: "center",
     alignItems: "center",
     fontFamily: "Roboto, sans-serif",
