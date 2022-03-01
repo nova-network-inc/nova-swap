@@ -27,6 +27,12 @@ const fantomTokens = [
     name: "Bitcoin",
     symbol: "WBTC"
   }, {
+    address: "0x90E892FED501ae00596448aECF998C88816e5C0F",
+    decimals: 18,
+    logoURI: "https://cloudflare-ipfs.com/ipfs/Qmb9r2iaHXxhJKpe94vBwEtpitLYaZJb1CFe6nEkZVkcki",
+    name: "DarkMatter",
+    symbol: "DMD"
+  }, {
     address: "0x74b23882a30290451A17c44f4F05243b6b58C76d",
     decimals: 18,
     logoURI: "https://novanetwork.io/wp-content/uploads/2020/11/Ethereum-ETH-icon.png",
