@@ -68,12 +68,6 @@ const fantomTokens = [
     logoURI: "https://novanetwork.io/wp-content/uploads/2020/11/Tether-USDT-icon.png",
     name: "Tether USDT",
     symbol: "USDT"
-  }, {
-    address: "0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83",
-    decimals: 18,
-    logoURI: "https://novanetwork.io/wp-content/uploads/2022/02/wFtm_32.png",
-    name: "Wrapped Fantom",
-    symbol: "WFTM"
   },
 ]
 
