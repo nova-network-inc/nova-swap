@@ -275,7 +275,7 @@ const fantomContract = {
 	}
 ],
 
-  address: '0x35929c9f00fcde81316e5533dfbbf818c0283b8e'
+  address: '0x59c8270b9B89F675031eE115e0F15a6919E5ccC0'
 
 }
 

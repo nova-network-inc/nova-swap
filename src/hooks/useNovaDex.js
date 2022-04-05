@@ -108,21 +108,54 @@ const useNovaDex = (chain) => {
           }
         } else {
           if (params.fromToken.withFee || params.toToken.withFee) {
-            await contractInstance.current.methods.swapExactTokensForTokensSupportingFeeOnTransferTokens(
+            const swapFunc =  contractInstance.current.methods.swapExactTokensForTokensSupportingFeeOnTransferTokens(
               fromToken.address,
               toToken.address,
               amount,
               1,
               account,
-            ).send({ from: account })
+            )
+              // .send({ from: account })
+            const estimateResult = await swapFunc.estimateGas(
+              {
+                  from: account,
+              }
+            )
+            .then(() => {
+              console.log('success')
+              return true
+            })
+            .catch((err) => {
+              console.log(err)
+              return false
+            })
+            if (estimateResult) {
+              await swapFunc.send({ from: account })
+            }
           } else {
-            await contractInstance.current.methods.swapExactTokensForTokens(
+            const swapFunc = contractInstance.current.methods.swapExactTokensForTokens(
               fromToken.address,
               toToken.address,
               amount,
               1,
               account,
-            ).send({ from: account })
+            )
+            const estimateResult = await swapFunc.estimateGas(
+              {
+                  from: account,
+              }
+            )
+            .then(() => {
+              console.log('success')
+              return true
+            })
+            .catch((err) => {
+              console.log(err)
+              return false
+            })
+            if (estimateResult) {
+              await swapFunc.send({ from: account })
+            }
           }
         }
         

@@ -378,7 +378,7 @@ contract novaSwapContract is ReentrancyGuard, Ownable {
         // require(_amountIn >= 100, "No enough amount");
         // First we need to transfer the amount in tokens from the msg.sender to this contract.
         // This contract will then have the amount of in tokens to be traded.
-        TransferHelper.safeTransferFrom(_tokenIn, msg.sender, address(this), _amountIn);
+        IERC20(_tokenIn).transferFrom(msg.sender, address(this), _amountIn);
 
         // Next we need to allow the Uniswap V2 router to spend the token we just sent to this contract.
         // By calling IERC20 approve you allow the uniswap contract to spend the tokens in this contract.
@@ -404,8 +404,13 @@ contract novaSwapContract is ReentrancyGuard, Ownable {
             path[2] = _tokenOut;
         }
 
-        // select router
-         if (_tokenIn == 0x69D17C151EF62421ec338a0c92ca1c1202A427EC || _tokenOut == 0x69D17C151EF62421ec338a0c92ca1c1202A427EC) {
+        // select router Taxed Token
+
+        if (_tokenIn == 0x90E892FED501ae00596448aECF998C88816e5C0F
+            || _tokenIn == 0x69D17C151EF62421ec338a0c92ca1c1202A427EC
+            || _tokenOut == 0x90E892FED501ae00596448aECF998C88816e5C0F
+            || _tokenOut == 0x69D17C151EF62421ec338a0c92ca1c1202A427EC
+        ) {
             properRouter = Routers[0];
         } else {
             uint256 amount = 0;
@@ -438,12 +443,12 @@ contract novaSwapContract is ReentrancyGuard, Ownable {
         nonReentrant
         external
     {
-        
+
         // require(_amountIn >= 100, "No enough amount");
         // First we need to transfer the amount in tokens from the msg.sender to this contract.
         // This contract will then have the amount of in tokens to be traded.
         uint256 beforeAmount = IERC20(_tokenIn).balanceOf(address(this));
-        TransferHelper.safeTransferFrom(_tokenIn, msg.sender, address(this), _amountIn);
+        IERC20(_tokenIn).transferFrom(msg.sender, address(this), _amountIn);
         uint256 afterAmount = IERC20(_tokenIn).balanceOf(address(this));
 
         uint256 amountIn = afterAmount.sub(beforeAmount);
@@ -471,8 +476,13 @@ contract novaSwapContract is ReentrancyGuard, Ownable {
             path[2] = _tokenOut;
         }
 
-        // select router
-        if (_tokenIn == 0x69D17C151EF62421ec338a0c92ca1c1202A427EC || _tokenOut == 0x69D17C151EF62421ec338a0c92ca1c1202A427EC) {
+        // select router Taxed Token
+
+        if (_tokenIn == 0x90E892FED501ae00596448aECF998C88816e5C0F
+            || _tokenIn == 0x69D17C151EF62421ec338a0c92ca1c1202A427EC
+            || _tokenOut == 0x90E892FED501ae00596448aECF998C88816e5C0F
+            || _tokenOut == 0x69D17C151EF62421ec338a0c92ca1c1202A427EC
+        ) {
             properRouter = Routers[0];
         } else {
             uint256 amount = 0;
@@ -503,8 +513,8 @@ contract novaSwapContract is ReentrancyGuard, Ownable {
         external
     {
         // send token from user to contract
-        TransferHelper.safeTransferFrom(_tokenIn, msg.sender, address(this), _amountIn);
-        
+        IERC20(_tokenIn).transferFrom(msg.sender, address(this), _amountIn);
+
         // send fee to admin
         uint256 fee = takeTokenFee(_tokenIn, _amountIn);
 
@@ -516,8 +526,9 @@ contract novaSwapContract is ReentrancyGuard, Ownable {
         path[1] = WRAPPED;
         address properRouter;
 
-        // select router
-         if (_tokenIn == 0x69D17C151EF62421ec338a0c92ca1c1202A427EC) {
+        // select router Taxed Token
+
+        if (_tokenIn == 0x90E892FED501ae00596448aECF998C88816e5C0F || _tokenIn == 0x69D17C151EF62421ec338a0c92ca1c1202A427EC) {
             properRouter = Routers[0];
         } else {
             uint256 amount = 0;
@@ -548,7 +559,7 @@ contract novaSwapContract is ReentrancyGuard, Ownable {
         external
     {
         uint256 beforeAmount = IERC20(_tokenIn).balanceOf(address(this));
-        TransferHelper.safeTransferFrom(_tokenIn, msg.sender, address(this), _amountIn);
+        IERC20(_tokenIn).transferFrom(msg.sender, address(this), _amountIn);
         uint256 afterAmount = IERC20(_tokenIn).balanceOf(address(this));
 
         uint256 amountIn = afterAmount.sub(beforeAmount);
@@ -566,10 +577,13 @@ contract novaSwapContract is ReentrancyGuard, Ownable {
         path[1] = WRAPPED;
         address properRouter;
 
-        // select router
-        if (_tokenIn == 0x69D17C151EF62421ec338a0c92ca1c1202A427EC) {
+        // select router Taxed Token
+
+        if (_tokenIn == 0x90E892FED501ae00596448aECF998C88816e5C0F || _tokenIn == 0x69D17C151EF62421ec338a0c92ca1c1202A427EC) {
             properRouter = Routers[0];
-        } else {
+        }
+
+        else {
             uint256 amount = 0;
             for (uint i = 0; i < Routers.length; i++) {
                 address router = Routers[i];
@@ -612,9 +626,11 @@ contract novaSwapContract is ReentrancyGuard, Ownable {
         path[0] = WRAPPED;
         path[1] = _tokenOut;
 
-        
-        // select router
-        if (_tokenOut == 0x69D17C151EF62421ec338a0c92ca1c1202A427EC) {
+        // select router Taxed Token
+
+        if (_tokenOut == 0x90E892FED501ae00596448aECF998C88816e5C0F
+            || _tokenOut == 0x69D17C151EF62421ec338a0c92ca1c1202A427EC
+        ) {
             properRouter = Routers[0];
         } else {
             uint256 amount = 0;
@@ -627,7 +643,6 @@ contract novaSwapContract is ReentrancyGuard, Ownable {
                 }
             }
         }
-
         // call swap
         NovaSwapRouter(properRouter).swapExactETHForTokens{ value: _amountIn- feeAmount }(_amountOutMin, path, _to, block.timestamp);
     }
@@ -656,10 +671,13 @@ contract novaSwapContract is ReentrancyGuard, Ownable {
         path[0] = WRAPPED;
         path[1] = _tokenOut;
 
-        
-        // select router
-         if (_tokenOut == 0x69D17C151EF62421ec338a0c92ca1c1202A427EC) {
-            properRouter = Routers[0];
+
+        // select router Taxed Token
+
+        if (_tokenOut == 0x90E892FED501ae00596448aECF998C88816e5C0F
+            || _tokenOut == 0x69D17C151EF62421ec338a0c92ca1c1202A427EC
+        ) {
+           properRouter = Routers[0];
         } else {
             uint256 amount = 0;
             for (uint i = 0; i < Routers.length; i++) {
