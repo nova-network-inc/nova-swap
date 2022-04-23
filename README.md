@@ -23,15 +23,23 @@ Github is only needed if you're using git commands to clone, push, pull, etc.
 
 2. In the '.env' file you will only need the two lines below, spcifying your Moralis Server ID and URL:
 
->REACT_APP_MORALIS_APPLICATION_ID = 'MORALIS SERVER ID'
+```shell
+REACT_APP_MORALIS_APPLICATION_ID = 'MORALIS SERVER ID'
+```
 
+```shell
 >REACT_APP_MORALIS_SERVER_URL = 'MORALIS SERVER URL'
+```
 
 3. After you have created and saved your '.env' file, just run the two commands below in your PowerShell, Command Prompt, Terminal, or whatever IDE you're using:
 
-> yarn install
+```shell
+yarn install
+```
 
->yarn start
+```shell
+yarn start
+```
 
  4. Done! You should have your NovaSwap™ up and running in your localhost just like that.
 
@@ -43,7 +51,9 @@ If you don't have a Moralis Server, you will need to create one in order to get 
 
 Once you have made all the changes you want to the code, you can use the command line below to build your application and have it ready to be deployed.
 
->yarn build
+```shell
+yarn build
+```
 
 <h3># White-label Solutions</h3>
 
