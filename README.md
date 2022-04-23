@@ -1,3 +1,7 @@
+### ⚠ Deprecation Notice ###
+
+We will no longer offer support for NovaSwap due to the merge with NovaDEX. The code is still free to use and open-source, but we will no longer deploy any updates or bug fixes, so use it at your own risk.
+
 # NovaSwap™
  NovaSwap™ is a powerful DeFi multichain protocol, that allows users to manage their assets on several different networks. It uses Moralis, and is expected that in the future it will be possible to use it with Solana and other non-EVM networks, but for the time being, you can only use it with EVMs.
 
